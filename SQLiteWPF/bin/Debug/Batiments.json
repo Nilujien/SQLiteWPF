@@ -1,0 +1,34 @@
+[
+  {
+    "nom": "Carrousel",
+    "ville": "Le Pré-Saint-Gervais",
+    "codepostal": 93310,
+    "adresse": "17, rue Lazare Carnot"
+  },
+  {
+    "nom": "Pyramide",
+    "ville": "Pantin",
+    "codepostal": 93310,
+    "adresse": "17, rue Lazare Carnot"
+  },
+  {
+    "nom": "Cama",
+    "ville": "Pantin",
+    "codepostal": 93310,
+    "adresse": "17, rue Lazare Carnot"
+  },
+  {
+    "nom": "Eurogim",
+    "ville": "Pantin",
+    "codepostal": 93310,
+    "adresse": "17, rue Lazare Carnot"
+  },
+  {
+    "nom": "Penthievre",
+    "ville": "Pantin",
+    "codepostal": 93310,
+    "adresse": "17, rue Lazare Carnot"
+  }
+
+
+]

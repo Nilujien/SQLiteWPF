@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace SQLiteWPF
 {
@@ -26,6 +28,15 @@ namespace SQLiteWPF
         {
             InitializeComponent();
             setup();
+
+            
+
+
+        }
+
+        public static string DBDirectory()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);       //fetch App Data Local directory
         }
 
         void setup()
@@ -34,13 +45,22 @@ namespace SQLiteWPF
             {
                 new SetupSQLite();
             }
-            Select(SetupSQLite.sqliteconn);     //load database content into listView
+            Select(SetupSQLite.sqliteconn);
+            //load database content into listView
+
+            string dbpath = Path.Combine(DBDirectory() + @"\HER_Sqlite_DB\DB_00.sqlite");
+            string connectionString = "Data Source=" + dbpath + ";Version=3";
+
+            List<string> buildingNames = SetupSQLite.GetBuildingsNamesFromSQLite(connectionString);
+            CBB_Buildings.ItemsSource = buildingNames;
+
+
         }
 
         bool Insert(DateTime date, string name, int age, double amount, string comments, SQLiteConnection sqliteconn)
         {
             var command = sqliteconn.CreateCommand();
-            command.CommandText = "INSERT INTO my_tbl(date, name, age, amount, comments) VALUES ('" + date + "', '" + name + "','" + age + "','" + amount + "', '" + comments + "')";
+            command.CommandText = "INSERT INTO project(date, name, age, amount, comments) VALUES ('" + date + "', '" + name + "','" + age + "','" + amount + "', '" + comments + "')";
             handleConn(sqliteconn);
             bool s = command.ExecuteNonQuery() == 1 ? true : false;       //ExecuteNonQuery method returns 1 for success and 0 for failure, if it returns 1 assign boolean value true to indicate a successful commit
             handleConn(sqliteconn);
@@ -50,7 +70,7 @@ namespace SQLiteWPF
         bool Truncate(SQLiteConnection sqliteconn)
         {
             var command = sqliteconn.CreateCommand();
-            command.CommandText = "DELETE FROM my_tbl";     //Currently SQLite does not use TRUNCATE, its either you use DELETE or DROP TABLE IF EXISTS then recreate it
+            command.CommandText = "DELETE FROM project";     //Currently SQLite does not use TRUNCATE, its either you use DELETE or DROP TABLE IF EXISTS then recreate it
             handleConn(sqliteconn);
             bool s = command.ExecuteNonQuery() == 1 ? false : true;   
             handleConn(sqliteconn);
@@ -62,7 +82,7 @@ namespace SQLiteWPF
         {
             DataSet ds = new DataSet();        //dataset used to hold content returned from SQLite db
 
-            string str_query = "SELECT id, date, name, age, amount, comments FROM my_tbl ORDER BY id DESC"; //consider using LINQ to SQL
+            string str_query = "SELECT id, date, name, age, amount, comments FROM project ORDER BY id DESC"; //consider using LINQ to SQL
             using (var cmd = new SQLiteCommand(str_query))
             {
                 SQLiteDataAdapter sda = new SQLiteDataAdapter();
@@ -79,16 +99,25 @@ namespace SQLiteWPF
 
         private void submit_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (Insert(DateTime.Now, name_txtbox.Text, int.Parse(age_txtbox.Text), double.Parse(amount_txtbox.Text), comments_txtbox.Text, SetupSQLite.sqliteconn))
+            try
             {
-                MessageBox.Show("Information successfully submitted");
-                Select(SetupSQLite.sqliteconn);
+                if (Insert(DateTime.Now, name_txtbox.Text, int.Parse(age_txtbox.Text), double.Parse(amount_txtbox.Text), comments_txtbox.Text, SetupSQLite.sqliteconn))
+                {
+                    //MessageBox.Show("Information successfully submitted");
+                    Select(SetupSQLite.sqliteconn);
 
+                }
+                else
+                {
+                    MessageBox.Show("Oops! Something went wrong");
+                }
             }
-            else
-            {
-                MessageBox.Show("Oops! Something went wrong");
-            }
+
+
+            catch (System.FormatException ex)
+            { MessageBox.Show(ex.Message + " >><< "); }
+
+            
         }
         private void truncate_btn_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +139,31 @@ namespace SQLiteWPF
             }
         }
 
+        private void listView_Selected(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hey");
+        }
 
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            DataRowView dtrv = listView.SelectedItem as DataRowView;
+            if(dtrv != null)
+            {
+                DataRow dtr = dtrv.Row;
+                object[] obj = dtr.ItemArray;
+                foreach (object obj2 in obj)
+                {
+
+                    //MessageBox.Show(obj2.ToString());
+                }
+            }
+            
+        }
+
+        private void listView_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("hey");
+        }
     }
 }
