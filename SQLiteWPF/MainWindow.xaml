@@ -11,6 +11,27 @@
         Title="Hermès - Aménagements et Travaux - Project Manager" Height="650" Width="610">
 
     <Window.Resources>
+        
+        <!-- Style de Border de présentation, avec effet de changement de couleur de la bordure au survol du curseur -->
+
+        <Style x:Key="MonStyleDeBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#FF2F2F2F"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
+                </Setter.Value>
+            </Setter>
+            <!-- Ajoutez un effet de survol pour changer la couleur de BorderBrush -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <!-- Fill Brushes -->
 
@@ -272,6 +293,8 @@
         </Style>
 
         <!-- Style pour Header de ListView -->
+        <!-- Ce style détruit les fonctionnalités de resizing et de déplacement des colonnes, il faudra reforger le tout si l'on veut utiliser ce style-->
+        <!-- Pour l'instant ce style n'est pas utilisé -->
 
         <Style x:Key="GridViewColumnHeaderStyle1" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">
@@ -291,11 +314,10 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            
         </Style>
 
         <!-- Style pour Button -->
-        <Style x:Key="CustomButtonStyle" TargetType="Button">
+        <Style x:Key="BoutonCreation" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -306,7 +328,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
+                                Background="#FF232323"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="5">
@@ -330,6 +352,45 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Style pour bouton de suppression -->
+        <Style x:Key="BoutonSuppression" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="#FF232323"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF3E3E3E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
         <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -354,7 +415,7 @@
                                 <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter TargetName="border" Property="Background" Value="#1a1a1a"/>
                                 <Setter Property="Foreground" Value="Gray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -471,6 +532,7 @@
         <Grid x:Name="Grid_Input" Margin="10,10,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -481,44 +543,64 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="name_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Column="1" BorderBrush="Black" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D">
+            <TextBox x:Name="project_name_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Column="2" BorderBrush="Black" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D">
                 
             </TextBox>
-            <TextBox x:Name="age_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="1" Grid.RowSpan="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
-            <TextBox x:Name="amount_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" MinHeight="40"/>
-            <TextBox x:Name="comments_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="3" Grid.Column="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" />
-            <Button x:Name="submit_btn" Style="{StaticResource CustomButtonStyle}" Content="Submit" MinHeight="40" Click="submit_btn_Click" Grid.Row="5" Grid.Column="1" Margin="10">
+            <TextBox x:Name="project_city_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" IsEnabled="False"/>
+            <TextBox x:Name="responsable_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" MinHeight="40"/>
+            <Button x:Name="submit_btn" Style="{StaticResource BoutonCreation}" Content="Créer le Projet" MinHeight="40" Click="submit_btn_Click" Grid.Row="6" Grid.Column="2" Margin="10">
                 
             </Button>
-            <Button x:Name="truncate_btn" Style="{StaticResource CustomButtonStyle}" Content="Effacer tout" MinHeight="40" Click="truncate_btn_Click" Grid.Row="5" Grid.Column="0" Margin="10">
+            <Button x:Name="truncate_btn" Style="{StaticResource BoutonSuppression}" Content="Effacer tout" MinHeight="40" Click="truncate_btn_Click" Grid.Row="6" Grid.Column="0" Margin="10" Grid.ColumnSpan="2">
                 
             </Button>
-            <Border BorderBrush="Black" Margin="10,10,10,10" CornerRadius="10,10,10,10" Background="#FF1E1E1E" MinHeight="40">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
-                </Border.Effect>
+            <Border x:Name="Border_Nom_Projet" Style="{StaticResource MonStyleDeBorder}" MinHeight="40" Grid.Column="1" ToolTip="Le nom du nouveau projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le nom du projet ne peut être laissé vide.">
+                
                 <Label x:Name="Label_ProjectName1" Content="Nom du projet" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
-            <Border BorderBrush="Black" Margin="10,10,10,10" CornerRadius="10,10,10,10" Background="#FF1E1E1E" Grid.Row="2" MinHeight="40">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
-                </Border.Effect>
-                <Label x:Name="Label_Age" Content="Ville" VerticalContentAlignment="Center" Margin="10,0,10,0" ToolTip="Age" Foreground="White"/>
+            <Border x:Name="Border_Ville" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" MinHeight="40" Grid.Column="1" ToolTip="La ville du bâtiment sélectionné.&#x0a;Cette information est récupérée automatiquement par la sélection d'un bâtiment, avec d'autres informations de localisation (code postal, adresse, etc.).&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Ce controle n'est pas éditable par l'utilisateur.">
+                
+                <Label x:Name="Label_Age" Content="Ville" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
-            <Border BorderBrush="Black" Margin="10,10,10,10" CornerRadius="10,10,10,10" Background="#FF1E1E1E" Grid.Row="1" MinHeight="40">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
-                </Border.Effect>
-                <Label x:Name="Label_Amount" Content="Batiment(s)" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
+            <Border x:Name="Border_Batiment" Style="{StaticResource MonStyleDeBorder}" Grid.Row="1" MinHeight="40" Grid.Column="1" ToolTip="Le batiment concerné par le projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le bâtiment ne peut être laissé vide.">
+                
+                <Label x:Name="Label_Amount" Content="Batiment" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" />
             </Border>
-            <Border BorderBrush="Black" Margin="10,10,10,10" CornerRadius="10,10,10,10" Background="#FF1E1E1E" Grid.Row="3" MinHeight="40">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
-                </Border.Effect>
+            <Border x:Name="Border_Etages" Style="{StaticResource MonStyleDeBorder}" Grid.Row="3" MinHeight="40" Grid.Column="1" ToolTip="Les étages du bâtiment concernés par le projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Plusieurs étages peuvent être sélectionnés.">
+                
                 <Label Content="Etage(s)" VerticalContentAlignment="Center" Foreground="White" Margin="10,0,10,0"/>
             </Border>
-            <ComboBox x:Name="CBB_Buildings" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" MinHeight="40" IsEditable="True" Background="#2d2d2d"/>
+            <ComboBox x:Name="project_batiment_combobox" Grid.Row="1" Grid.Column="2" Margin="10,10,10,10" MinHeight="40" IsEditable="True" Background="#2d2d2d"/>
+            <ListBox x:Name="project_etages_listbox" Foreground="White" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10" Grid.Row="3" BorderBrush="Black" SelectionMode="Multiple" Background="#2d2d2d" Grid.Column="2" SnapsToDevicePixels="True" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" MinHeight="60" IsEnabled="True">
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="Background" Value="#2d2d2d"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#2d2d2d"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+            <Border x:Name="Border_Responsable" Style="{StaticResource MonStyleDeBorder}" Grid.Row="4" MinHeight="40" Grid.Column="1" ToolTip="La personne en charge du projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le responsable ne peut être laissé vide.">
+
+                <Label x:Name="Responsable" Content="Responsable" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
+            </Border>
+            <Image x:Name="logo_batiment" Grid.RowSpan="1" Source="/Resources/logo_batiment.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Image x:Name="logo_ville" Source="/Resources/logo_ville.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Image x:Name="logo_etage" Source="/Resources/logo_etages.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Image x:Name="logo_responsable" Source="/Resources/logo_responsable.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Image x:Name="logo_nom_projet" Source="/Resources/logo_nom_projet.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Border x:Name="Border_Description" Style="{StaticResource MonStyleDeBorder}" Grid.Row="5" MinHeight="40" Grid.Column="1" ToolTip="La personne en charge du projet.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est indispensable à la création d'un nouveau projet.&#xA;Le responsable ne peut être laissé vide." Margin="10,10,10,10">
+
+                <Label x:Name="Description_Projet" Content="Description" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
+            </Border>
+            <Image x:Name="logo_description_projet" Source="/Resources/logo_description_projet.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <TextBox x:Name="description_txtbox" Style="{StaticResource CustomTextBoxStyle}" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="5" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" MinHeight="80"/>
         </Grid>
         <ListView x:Name="listView" GridViewColumnHeader.Click="listView_Click"  ItemsSource="{Binding Table}" BorderBrush="white" Grid.Row="2" Margin="20,20,30,20" SelectionChanged="listView_SelectionChanged">
             <ListView.ItemContainerStyle>
@@ -526,7 +608,7 @@
                     <Style.Resources>
                         <LinearGradientBrush x:Key="ListItemHoverFill" EndPoint="1,0" StartPoint="0,0">
                             <GradientStop Color="Transparent" Offset="0.5"/>
-                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="SkyBlue" Offset="1"/>
                         </LinearGradientBrush>
                     </Style.Resources>
                     <Setter Property="Template">
@@ -614,12 +696,13 @@
             </ListView.Background>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="iD" Width="60" DisplayMemberBinding="{Binding id}"/>
-                    <GridViewColumn Header="Date de création"  Width="150" DisplayMemberBinding="{Binding date}"/>
-                    <GridViewColumn Header="Nom du projet"   Width="100" DisplayMemberBinding="{Binding name}"/>
-                    <GridViewColumn Header="Batiment"   Width="60" DisplayMemberBinding="{Binding age}"/>
-                    <GridViewColumn Header="Etage"   Width="130" DisplayMemberBinding="{Binding amount}"/>
-                    <GridViewColumn Header="Description"   Width="150" DisplayMemberBinding="{Binding comments}"/>
+                    <GridViewColumn Header="iD" Width="Auto" DisplayMemberBinding="{Binding iD}"/>
+                    <GridViewColumn Header="Date de création"  Width="Auto" DisplayMemberBinding="{Binding project_creation_date}"/>
+                    <GridViewColumn Header="Nom du projet" Width="Auto" DisplayMemberBinding="{Binding project_name}"/>
+                    <GridViewColumn Header="Batiment"   Width="Auto" DisplayMemberBinding="{Binding project_batiment}"/>
+                    <GridViewColumn Header="Ville"  Width="Auto" DisplayMemberBinding="{Binding project_city}"/>
+                    <GridViewColumn Header="Etage(s)"   Width="Auto" DisplayMemberBinding="{Binding project_floors}"/>
+                    <GridViewColumn Header="Responsable"   Width="Auto" DisplayMemberBinding="{Binding project_specialist}"/>
                 </GridView>
             </ListView.View>
         </ListView>
