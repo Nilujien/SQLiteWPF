@@ -3,15 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:SQLiteWPF"
         mc:Ignorable="d"
           ResizeMode="CanResizeWithGrip"
         
         WindowStartupLocation="CenterScreen"
-        Title="Hermès - Aménagements et Travaux - Project Manager" Height="650" Width="610">
+        WindowState="Maximized"
+        Title="Hermès - Aménagements et Travaux - Project Manager" Height="1000" Width="1200">
 
     <Window.Resources>
-        
+
+        <!-- Dark TabControl Style -->
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" Background="#1a1a1a" />
+                            <Border x:Name="ContentPanel" Grid.Row="1" Grid.Column="0" BorderBrush="#444" BorderThickness="1" CornerRadius="2" Background="#222" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" Margin="4" ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Dark TabItem Style -->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#444" />
+            <Setter Property="Padding" Value="10,2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#555"/>
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- Style de Border de présentation, avec effet de changement de couleur de la bordure au survol du curseur -->
 
         <Style x:Key="MonStyleDeBorder" TargetType="Border">
@@ -150,14 +202,16 @@
 
         <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
             <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
-            
+
         </ControlTemplate>
+
+        <!-- Bouton de déroulement de la ComboBox -->
 
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <Border
                       x:Name="Border" 
@@ -165,7 +219,7 @@
                       CornerRadius="5"
                       Background="{StaticResource NormalBrush}"
                       BorderBrush="{StaticResource NormalBorderBrush}"
-                      BorderThickness="1" />        
+                      BorderThickness="1" />
                 <Border 
                       Grid.Column="0"
                       CornerRadius="5,0,0,5" 
@@ -183,7 +237,7 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />
+                    <Setter TargetName="Border" Property="Background" Value="#2d2d2d" />
                     <Setter TargetName="Border" Property="BorderBrush" Value="SkyBlue" />
                 </Trigger>
                 <Trigger Property="ToggleButton.IsChecked" Value="true">
@@ -207,7 +261,6 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
             <Setter Property="MinWidth" Value="120"/>
             <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="MinHeight" Value="40"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -302,7 +355,7 @@
                     <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
                         <Border BorderThickness="1,1,0,1" BorderBrush="Gray" Background="Black">
                             <TextBlock x:Name="ContentHeader" VerticalAlignment="Center" Foreground="Gray" Text="{TemplateBinding Content}" Padding="5,5,5,5" Width="{TemplateBinding Width}" TextAlignment="Center"/>
-                            
+
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -335,6 +388,10 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
+                            </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
                                 <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
@@ -352,7 +409,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!-- Style pour bouton de suppression -->
         <Style x:Key="BoutonSuppression" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -389,8 +446,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
+
+
+        <!-- Style de texbox -->
         <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -516,19 +574,17 @@
         </Style>
     </Window.Resources>
 
+
+
     <Grid x:Name="Grid_Main" Background="#1a1a1a">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="10">
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="75,10,0,0"/>
-        </StackPanel>
         <Grid x:Name="Grid_Input" Margin="10,10,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -536,44 +592,43 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition MinHeight="60"/>
+                <RowDefinition MinHeight="60"/>
+                <RowDefinition MinHeight="60"/>
+                <RowDefinition MinHeight="90" Height="2*"/>
+                <RowDefinition MinHeight="60"/>
+                <RowDefinition MinHeight="90"/>
+                <RowDefinition MinHeight="60"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="project_name_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Column="2" BorderBrush="Black" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D">
-                
+            <TextBox x:Name="project_name_txtbox" TabIndex="0" Style="{StaticResource CustomTextBoxStyle}" Grid.Column="2" BorderBrush="Black" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D">
+
             </TextBox>
             <TextBox x:Name="project_city_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" IsEnabled="False"/>
-            <TextBox x:Name="responsable_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" MinHeight="40"/>
-            <Button x:Name="submit_btn" Style="{StaticResource BoutonCreation}" Content="Créer le Projet" MinHeight="40" Click="submit_btn_Click" Grid.Row="6" Grid.Column="2" Margin="10">
-                
+            <TextBox x:Name="responsable_txtbox" Style="{StaticResource CustomTextBoxStyle}" TabIndex="3" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
+            <Button x:Name="submit_btn" Style="{StaticResource BoutonCreation}" Content="Créer le Projet" Click="submit_btn_Click" Grid.Row="6"  Grid.Column="2" Margin="10">
+
             </Button>
-            <Button x:Name="truncate_btn" Style="{StaticResource BoutonSuppression}" Content="Effacer tout" MinHeight="40" Click="truncate_btn_Click" Grid.Row="6" Grid.Column="0" Margin="10" Grid.ColumnSpan="2">
-                
+            <Button x:Name="truncate_btn" Style="{StaticResource BoutonSuppression}" Content="Effacer tout" Click="truncate_btn_Click" Grid.Row="6" Grid.Column="0" Margin="10" Grid.ColumnSpan="2">
+
             </Button>
-            <Border x:Name="Border_Nom_Projet" Style="{StaticResource MonStyleDeBorder}" MinHeight="40" Grid.Column="1" ToolTip="Le nom du nouveau projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le nom du projet ne peut être laissé vide.">
-                
+            <Border x:Name="Border_Nom_Projet" Style="{StaticResource MonStyleDeBorder}" Grid.Column="1" ToolTip="Le nom du nouveau projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le nom du projet ne peut être laissé vide.">
+
                 <Label x:Name="Label_ProjectName1" Content="Nom du projet" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
-            <Border x:Name="Border_Ville" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" MinHeight="40" Grid.Column="1" ToolTip="La ville du bâtiment sélectionné.&#x0a;Cette information est récupérée automatiquement par la sélection d'un bâtiment, avec d'autres informations de localisation (code postal, adresse, etc.).&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Ce controle n'est pas éditable par l'utilisateur.">
-                
+            <Border x:Name="Border_Ville" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" Grid.Column="1" ToolTip="La ville du bâtiment sélectionné.&#x0a;Cette information est récupérée automatiquement par la sélection d'un bâtiment, avec d'autres informations de localisation (code postal, adresse, etc.).&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Ce controle n'est pas éditable par l'utilisateur.">
+
                 <Label x:Name="Label_Age" Content="Ville" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
-            <Border x:Name="Border_Batiment" Style="{StaticResource MonStyleDeBorder}" Grid.Row="1" MinHeight="40" Grid.Column="1" ToolTip="Le batiment concerné par le projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le bâtiment ne peut être laissé vide.">
-                
+            <Border x:Name="Border_Batiment" Style="{StaticResource MonStyleDeBorder}" Grid.Row="1" Grid.Column="1" ToolTip="Le batiment concerné par le projet.&#x0a;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le bâtiment ne peut être laissé vide.">
+
                 <Label x:Name="Label_Amount" Content="Batiment" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" />
             </Border>
-            <Border x:Name="Border_Etages" Style="{StaticResource MonStyleDeBorder}" Grid.Row="3" MinHeight="40" Grid.Column="1" ToolTip="Les étages du bâtiment concernés par le projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Plusieurs étages peuvent être sélectionnés.">
-                
+            <Border x:Name="Border_Etages" Style="{StaticResource MonStyleDeBorder}" Grid.Row="3"  Grid.Column="1" ToolTip="Les étages du bâtiment concernés par le projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Plusieurs étages peuvent être sélectionnés.">
+
                 <Label Content="Etage(s)" VerticalContentAlignment="Center" Foreground="White" Margin="10,0,10,0"/>
             </Border>
-            <ComboBox x:Name="project_batiment_combobox" Grid.Row="1" Grid.Column="2" Margin="10,10,10,10" MinHeight="40" IsEditable="True" Background="#2d2d2d"/>
-            <ListBox x:Name="project_etages_listbox" Foreground="White" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10" Grid.Row="3" BorderBrush="Black" SelectionMode="Multiple" Background="#2d2d2d" Grid.Column="2" SnapsToDevicePixels="True" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" MinHeight="60" IsEnabled="True">
+            <ComboBox x:Name="project_batiment_combobox" TabIndex="1" Grid.Row="1" Grid.Column="2" Margin="10,10,10,10" IsEditable="True" Background="#2d2d2d"/>
+            <ListBox x:Name="project_etages_listbox" TabIndex="2" Foreground="White" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10" Grid.Row="3" BorderBrush="Black" SelectionMode="Multiple" Background="#2d2d2d" Grid.Column="2" SnapsToDevicePixels="True" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" IsEnabled="True">
                 <ListBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -586,23 +641,23 @@
                     </Style>
                 </ListBox.Resources>
             </ListBox>
-            <Border x:Name="Border_Responsable" Style="{StaticResource MonStyleDeBorder}" Grid.Row="4" MinHeight="40" Grid.Column="1" ToolTip="La personne en charge du projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le responsable ne peut être laissé vide.">
+            <Border x:Name="Border_Responsable" Style="{StaticResource MonStyleDeBorder}" Grid.Row="4" Grid.Column="1" ToolTip="La personne en charge du projet.&#x0a;Cette information pourra être modifiée au cours de la vie du projet.&#x0a;Cette information est indispensable à la création d'un nouveau projet.&#x0a;Le responsable ne peut être laissé vide.">
 
                 <Label x:Name="Responsable" Content="Responsable" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
-            <Image x:Name="logo_batiment" Grid.RowSpan="1" Source="/Resources/logo_batiment.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
+            <Image x:Name="logo_batiment" Grid.RowSpan="1" Source="/Resources/logo_batiment.png" Margin="20,0,20,0" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
             <Image x:Name="logo_ville" Source="/Resources/logo_ville.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
             <Image x:Name="logo_etage" Source="/Resources/logo_etages.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
             <Image x:Name="logo_responsable" Source="/Resources/logo_responsable.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
             <Image x:Name="logo_nom_projet" Source="/Resources/logo_nom_projet.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
-            <Border x:Name="Border_Description" Style="{StaticResource MonStyleDeBorder}" Grid.Row="5" MinHeight="40" Grid.Column="1" ToolTip="La personne en charge du projet.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est indispensable à la création d'un nouveau projet.&#xA;Le responsable ne peut être laissé vide." Margin="10,10,10,10">
+            <Border x:Name="Border_Description" Style="{StaticResource MonStyleDeBorder}" Grid.Row="5" Grid.Column="1" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10">
 
                 <Label x:Name="Description_Projet" Content="Description" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
             </Border>
             <Image x:Name="logo_description_projet" Source="/Resources/logo_description_projet.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
-            <TextBox x:Name="description_txtbox" Style="{StaticResource CustomTextBoxStyle}" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="5" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" MinHeight="80"/>
+            <TextBox x:Name="description_txtbox" Style="{StaticResource CustomTextBoxStyle}" TabIndex="4" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="5" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
         </Grid>
-        <ListView x:Name="listView" GridViewColumnHeader.Click="listView_Click"  ItemsSource="{Binding Table}" BorderBrush="white" Grid.Row="2" Margin="20,20,30,20" SelectionChanged="listView_SelectionChanged">
+        <ListView x:Name="listView" GridViewColumnHeader.Click="listView_Click"  ItemsSource="{Binding Table}" BorderBrush="white" Grid.Row="2" Margin="20,30,30,20" SelectionChanged="listView_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Resources>
@@ -696,8 +751,8 @@
             </ListView.Background>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="iD" Width="Auto" DisplayMemberBinding="{Binding iD}"/>
-                    <GridViewColumn Header="Date de création"  Width="Auto" DisplayMemberBinding="{Binding project_creation_date}"/>
+                    <GridViewColumn Header="iD" Width="100" DisplayMemberBinding="{Binding iD}"/>
+                    <GridViewColumn Header="Date de création"  Width="120" DisplayMemberBinding="{Binding project_creation_date}"/>
                     <GridViewColumn Header="Nom du projet" Width="Auto" DisplayMemberBinding="{Binding project_name}"/>
                     <GridViewColumn Header="Batiment"   Width="Auto" DisplayMemberBinding="{Binding project_batiment}"/>
                     <GridViewColumn Header="Ville"  Width="Auto" DisplayMemberBinding="{Binding project_city}"/>
@@ -711,5 +766,18 @@
                 <DropShadowEffect BlurRadius="5" Opacity=".3"/>
             </GridSplitter.Effect>
         </GridSplitter>
+        <GridSplitter BorderBrush="#FF2D2D2D" BorderThickness="1" Background="#2d2d2d" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Stretch" Height="10">
+            <GridSplitter.Effect>
+                <DropShadowEffect BlurRadius="5" Opacity=".3"/>
+            </GridSplitter.Effect>
+        </GridSplitter>
+        <TabControl Grid.Column="1" Grid.RowSpan="2" Margin="20,20,20,20">
+            <TabItem Header="Informations" MinWidth="100"/>
+            <TabItem x:Name="___TabItem__PDF" Header="PDF" MinWidth="50">
+                <Grid Background="#1a1a1a">
+                    <wv2:WebView2 x:Name="webView" Source="C:\sample.pdf" Margin="10,10,10,10"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

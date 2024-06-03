@@ -40,6 +40,12 @@ namespace SQLiteWPF
 
         }
 
+
+        /// <summary>
+        /// Update des étages selon le batiment choisi.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Project_batiment_combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Récupérer le nom du batiment pour ensuite en récupérer les étages.
@@ -229,6 +235,7 @@ namespace SQLiteWPF
                 {
                     //MessageBox.Show("Information successfully submitted");
                     Select(SetupSQLite.sqliteconn);
+                    AutoResizeGridViewColumns((GridView)listView.View);
 
                 }
                 else
@@ -243,6 +250,18 @@ namespace SQLiteWPF
 
             
         }
+
+        static void AutoResizeGridViewColumns(GridView view)
+        {
+            if(view == null || view.Columns.Count < 1) return;
+            foreach(var column in view.Columns)
+            {
+                if (double.IsNaN(column.Width))
+                    column.Width = 1;
+                column.Width = double.NaN;
+            }
+        }
+
         private string concatenatePickedFloors(System.Collections.IList etages)
         {
             string concatenatedPickedFloorsString = null;

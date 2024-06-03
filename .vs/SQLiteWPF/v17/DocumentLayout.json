@@ -1,23 +1,27 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\",
+  "WorkspaceRootPath": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\jcuarter\\documents\\github\\sqlitewpf\\sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\julie\\source\\repos\\hermes_sqlitewpf\\sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|SQLiteWPF||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\setupsqlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\julie\\source\\repos\\hermes_sqlitewpf\\sqlitewpf\\setupsqlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\setupsqlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\batiments.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\sqlitewpf\\batiments.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\batiments.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
@@ -27,15 +31,15 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\sqlitewpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\sqlitewpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\jcuarter\\documents\\github\\sqlitewpf\\sqlitewpf\\properties\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\julie\\source\\repos\\hermes_sqlitewpf\\sqlitewpf\\properties\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\properties\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
     }
   ],
@@ -46,28 +50,44 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
+              "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-03T19:24:49.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Setter.cs",
               "DocumentMoniker": "C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
               "ToolTip": "C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs [Lecture seule]",
-              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs [Lecture seule]",
-              "ViewState": "AQIAAM0AAAAAAAAAAAAjwOIAAAAAAAAA",
+              "RelativeToolTip": "..\\..\\..\\..\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs [Lecture seule]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-03T14:28:09.589Z",
               "EditorCaption": " [Lecture seule]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SQLiteWPF",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
               "RelativeDocumentMoniker": "SQLiteWPF\\SQLiteWPF.csproj",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
               "RelativeToolTip": "SQLiteWPF\\SQLiteWPF.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-06-03T12:35:55.9Z",
@@ -75,24 +95,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "WpfXamlLoader.cs",
               "DocumentMoniker": "C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs",
               "ToolTip": "C:\\Users\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs [Lecture seule]",
-              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs [Lecture seule]",
-              "ViewState": "AQIAAGgAAAAAAAAAAAAjwHIAAAADAAAA",
+              "RelativeToolTip": "..\\..\\..\\..\\jcuarter\\AppData\\Local\\Temp\\.vsdbgsrc\\c6a5a7f5f1f891b96e7ce20decdfb3b83d9ea38a008c3e03a9a2dc211cf459f6\\WpfXamlLoader.cs [Lecture seule]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-03T11:27:09.661Z",
               "EditorCaption": " [Lecture seule]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Batiments.json",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\Batiments.json",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\Batiments.json",
               "RelativeDocumentMoniker": "SQLiteWPF\\Batiments.json",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\Batiments.json",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\Batiments.json",
               "RelativeToolTip": "SQLiteWPF\\Batiments.json",
               "ViewState": "AQIAAAoAAAAAAAAAAAAuwBgAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -101,22 +120,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Setter.cs",
               "DocumentMoniker": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
               "ToolTip": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T22:26:46.885Z"
+              "WhenOpened": "2024-06-01T22:26:46.885Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\App.xaml",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\App.xaml",
               "RelativeDocumentMoniker": "SQLiteWPF\\App.xaml",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\App.xaml",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\App.xaml",
               "RelativeToolTip": "SQLiteWPF\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-05-31T19:25:08.86Z",
@@ -124,39 +145,61 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\App.xaml.cs",
               "RelativeDocumentMoniker": "SQLiteWPF\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\App.xaml.cs",
               "RelativeToolTip": "SQLiteWPF\\App.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T18:18:32.764Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
-              "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-31T18:21:58.795Z",
+              "WhenOpened": "2024-05-31T18:18:32.764Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "SetupSQLite.cs",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SetupSQLite.cs",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\SetupSQLite.cs",
               "RelativeDocumentMoniker": "SQLiteWPF\\SetupSQLite.cs",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SetupSQLite.cs",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\SetupSQLite.cs",
               "RelativeToolTip": "SQLiteWPF\\SetupSQLite.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAawFUAAAAAAAAA",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAUwMIAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-31T18:20:34.01Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "74a4e8c6-60b5-4f9a-8208-fbac6e6d899b",
+        "Display": 1,
+        "X": 902,
+        "Y": 0,
+        "Width": 1023,
+        "Height": 935,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\julie\\source\\repos\\Hermes_SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
+              "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-31T18:21:58.795Z",
               "EditorCaption": ""
             }
           ]
