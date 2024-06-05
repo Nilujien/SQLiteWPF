@@ -119,5 +119,15 @@ namespace SQLiteWPF.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] sample {
+            get {
+                object obj = ResourceManager.GetObject("sample", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

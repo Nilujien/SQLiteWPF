@@ -1,23 +1,184 @@
 [
   {
-    "nom": "Carrousel",
-    "ville": "Le Pré-Saint-Gervais",
-    "codepostal": 93310,
-    "adresse": "17, rue Lazare Carnot",
-    "etages":  "SS1,RDC,R01,R02"
+    "nom": "13-15 LVL",
+    "ville": "Paris",
+    "codepostal": 75008,
+    "adresse": "13-15, rue de la Ville-l`Evêque",
+    "etages": "SS4,SS3,SS2,SS1,RDC,R01,R02,R03,R04,R05,R06,R07,R08,R09,R10,R11"
   },
   {
-    "nom": "Pyramide",
+    "nom": "Victor Hugo - A",
     "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "SS1,RDC,MEZ,R01,R02"
+  },
+  {
+    "nom": "Victor Hugo - BC1",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "RDC,MEZ"
+  },
+  {
+    "nom": "Victor Hugo - C2",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "SS1,RDC"
+  },
+  {
+    "nom": "Victor Hugo - D",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "SS1"
+  },
+  {
+    "nom": "Victor Hugo - E",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "RDC,R01"
+  },
+  {
+    "nom": "Victor Hugo - F",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "41, rue Victor Hugo",
+    "etages": "SS1,RDC,MEZ"
+  },
+  {
+    "nom": "Tour Essor",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "14, rue Scandicci",
+    "etages": "R14"
+  },
+  {
+    "nom": "Poulains",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "13, rue Hoche",
+    "etages": "SS1,RDC,R01,R02,R03,R04"
+  },
+  {
+    "nom": "Peniche",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "10, rue Auger",
+    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05"
+  },
+  {
+    "nom": "Paddock",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "1, allée des Ateliers",
+    "etages": "SS3,SS2,SS1,RDC,R01,R02,R03,R04"
+  },
+  {
+    "nom": "Pantin - Logistique",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "110, avenue du Général Leclerc",
+    "etages": "C9-RDC,C9-MEZ,C10-RDC,C10-MEZ,C11-RDC,C11-MEZ"
+  },
+  {
+    "nom": "Kanal",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "159, avenue Jean Lolive",
+    "etages": "R04,R05,R06,R07"
+  },
+  {
+    "nom": "HBO",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "14, rue Lesault",
+    "etages": "RDC,R01,R02"
+  },
+  {
+    "nom": "Forum",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "rue Hoche",
+    "etages": "SS1,RDC,R01,R02,R03"
+  },
+  {
+    "nom": "Fabrique",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "10, rue Auger",
+    "etages": "RDC,R01"
+  },
+  {
+    "nom": "EJLD",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "8, rue Florian",
+    "etages": "SS1,SS2,RDC,R01,R02,R03"
+  },
+  {
+    "nom": "EJLD - Halle",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "8, rue Florian",
+    "etages": "RDC,R01"
+  },
+  {
+    "nom": "CIA",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "25, rue Honoré d'Estienne d'Orves",
+    "etages": "RDC,R01"
+  },
+  {
+    "nom": "Cartier Bresson",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "87, rue Cartier Bresson",
+    "etages": "RDC,R01"
+  },
+  {
+    "nom": "19 Estienne D`Orves",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "19, rue Honoré d'Estienne d'Orves",
+    "etages": "RDC"
+  },
+  {
+    "nom": "Bobigny - Bureaux",
+    "ville": "Bobigny",
+    "codepostal": 93000,
+    "adresse": "1-7, avenue de la Convention",
+    "etages": "R01,R02,R03,R04"
+  },
+  {
+    "nom": "Bobigny - Logistique",
+    "ville": "Bobigny",
+    "codepostal": 93000,
+    "adresse": "1, avenue de la Convention",
+    "etages": "RDC,R01,R02"
+  },
+  {
+    "nom": "Carrousel",
+    "ville": "Le Pré-Saint-Gervais",
     "codepostal": 93310,
     "adresse": "17, rue Lazare Carnot",
     "etages": "SS1,RDC,R01,R02"
   },
   {
-    "nom": "Cama",
+    "nom": "Pyramide",
     "ville": "Pantin",
     "codepostal": 93310,
-    "adresse": "17, rue Lazare Carnot",
+    "adresse": "12-16, rue Auger",
+    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05,R06"
+  },
+  {
+    "nom": "Cama",
+    "ville": "Pantin",
+    "codepostal": 93500,
+    "adresse": "35, rue Auger",
     "etages": "SS1,RDC,R01,R02"
   },
   {

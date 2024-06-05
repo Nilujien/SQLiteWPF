@@ -84,13 +84,13 @@ namespace SQLiteWPF
             SQLiteConnection.CreateFile(Path.Combine(DBDirectory() + @"\HER_Sqlite_DB\DB_00.sqlite"));
             sqliteconn.Open();
 
-            // Création de la base de données ---
-            // Création de la base de données ---
-            // Création de la base de données ---
-            // Création de la base de données ---
+            // Création de la base de données projet---
+            // Création de la base de données projet---
+            // Création de la base de données projet---
+            // Création de la base de données projet---
 
             var command = sqliteconn.CreateCommand();       //create command using the SQLiteConnection      
-            command.CommandText = "CREATE TABLE IF NOT EXISTS project(iD INTEGER PRIMARY KEY, project_creation_date DATETIME NOT NULL, project_name VARCHAR(50) NOT NULL, project_completed INT, project_batiment TEXT, project_city TEXT, project_due_date DATETIME, project_floors TEXT, project_specialist TEXT, project_floors_PDF TEXT, project_floors_DWG TEXT, project_adress TEXT, project_zip_code INT )";
+            command.CommandText = "CREATE TABLE IF NOT EXISTS project(iD INTEGER PRIMARY KEY, project_creation_date TEXT NOT NULL, project_name VARCHAR(50) NOT NULL, project_completed INT, project_batiment TEXT, project_city TEXT, project_due_date TEXT, project_floors TEXT, project_specialist TEXT, project_floors_PDF TEXT, project_floors_DWG TEXT, project_adress TEXT, project_zip_code INT )";
             command.ExecuteNonQuery();      //execute the create command
 
 
@@ -149,6 +149,7 @@ namespace SQLiteWPF
 
                 }
             }
+            buildingsNames.Sort();
             return buildingsNames;
         }
         /// <summary>
@@ -158,6 +159,7 @@ namespace SQLiteWPF
         /// <param name="connectionString"></param>
         public static void InsertBuildingsIntoSQLite(List<Batiment> buildings, string connectionString)
         {
+            
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();

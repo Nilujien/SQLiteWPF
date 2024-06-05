@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
 using System.Globalization;
+using SQLiteWPF.Properties;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace SQLiteWPF
 {
@@ -34,10 +36,23 @@ namespace SQLiteWPF
             // Setup de la fenetre principale, se connecte à la base de données, actualise la listview
             setup();
             project_batiment_combobox.SelectionChanged += Project_batiment_combobox_SelectionChanged;
+            string BasePDFFile = Path.Combine(Path.GetTempPath(), "sample.pdf");
+            File.WriteAllBytes(BasePDFFile, SQLiteWPF.Properties.Resources.sample);
+            webView.Source = new Uri(BasePDFFile);
+            
+            webView.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
+            //MessageBox.Show(Path.Combine(Path.GetTempPath()));
+            
 
             
 
 
+        }
+
+        private void WebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
+        {
+            WebView2 webv = (WebView2)sender;
+            webv.CoreWebView2.Profile.PreferredColorScheme = Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme.Dark;
         }
 
 
@@ -214,16 +229,21 @@ namespace SQLiteWPF
             handleConn(sqliteconn);
         }
 
-
+        /// <summary>
+        /// Methode appellée lors du clic sur le bouton de création d'un nouveau projet.
+        /// Renseigne la base de données des projets avec une injonction INSERT.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submit_btn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (Insert(DateTime.Now.ToString("g", CultureInfo.CreateSpecificCulture("fr-FR")),
+                if (Insert(DateTime.Now.ToString("dd/MM/yyyy"),
                            project_name_txtbox.Text,
                            project_batiment_combobox.SelectedItem.ToString(),
                            0,
-                           DateTime.Now.ToString("g", CultureInfo.CreateSpecificCulture("fr-FR")),
+                           DateTime.Now.ToString("dd/MM/yyyy"),
                            responsable_txtbox.Text,
                            concatenatePickedFloors(project_etages_listbox.SelectedItems),
                            "PDF", // Fichiers PDF à référencer

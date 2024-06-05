@@ -69,3 +69,14 @@ C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.W
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Core.xml
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Core.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Core.xml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
