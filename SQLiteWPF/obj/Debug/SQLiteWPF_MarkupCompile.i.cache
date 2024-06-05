@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\obj\Debug\
+C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\obj\Debug\
 SQLiteWPF
 none
 false
 DEBUG;TRACE
-C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\App.xaml
-1219584333
-51616971557
+C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\App.xaml
+2-359108266
+5-1459904604
 7-733274599
-25768445530
-MainWindow.xaml;
+25-221317208
+DataGridStyle.xaml;MainWindow.xaml;
 
-False
+True
 

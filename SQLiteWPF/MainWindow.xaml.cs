@@ -42,11 +42,17 @@ namespace SQLiteWPF
             
             webView.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
             //MessageBox.Show(Path.Combine(Path.GetTempPath()));
-            
 
             
 
+            
 
+
+        }
+
+        private void MapExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)System.Windows.Application.Current.MainWindow).UpdateLayout();
         }
 
         private void WebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
@@ -196,18 +202,26 @@ namespace SQLiteWPF
 
             using(var cmd = new SQLiteCommand(query, sqliteconn))
             {
-                sqliteconn.Open();
-                cmd.Parameters.AddWithValue("@nom_batiment", nom_batiment);
-                
-                object result = cmd.ExecuteScalar();
-                if(result != null && result != DBNull.Value)
+                try
                 {
-                    etages_obtenus = result.ToString().Split(',').ToList();
-                    //MessageBox.Show(string.Join(" ",etages_obtenus));
-                    project_etages_listbox.SelectedItems.Clear();
-                    project_etages_listbox.ItemsSource = etages_obtenus;
+                    sqliteconn.Open();
+                    cmd.Parameters.AddWithValue("@nom_batiment", nom_batiment);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        etages_obtenus = result.ToString().Split(',').ToList();
+                        //MessageBox.Show(string.Join(" ",etages_obtenus));
+                        project_etages_listbox.SelectedItems.Clear();
+                        project_etages_listbox.ItemsSource = etages_obtenus;
+                    }
+                    sqliteconn.Close();
                 }
-                sqliteconn.Close();
+                catch (System.InvalidOperationException ex) 
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                
             }
         }
 
@@ -225,6 +239,7 @@ namespace SQLiteWPF
                 ds.Clear();     //clear dataset before loading new content to make sure no data mixup
                 sda.Fill(ds);
                 listView.DataContext = ds.Tables[0].DefaultView;
+                projectsDataGrid.DataContext = ds.Tables[0].DefaultView;
             }
             handleConn(sqliteconn);
         }
@@ -239,6 +254,7 @@ namespace SQLiteWPF
         {
             try
             {
+                // Ce if est particulierement grossier
                 if (Insert(DateTime.Now.ToString("dd/MM/yyyy"),
                            project_name_txtbox.Text,
                            project_batiment_combobox.SelectedItem.ToString(),

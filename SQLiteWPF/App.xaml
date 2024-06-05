@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SQLiteWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="DataGridStyle.xaml"/>
     </Application.Resources>
 </Application>
