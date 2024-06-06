@@ -58,7 +58,7 @@
     <Style TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="MinHeight" Value="40" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
@@ -126,6 +126,7 @@
 
     <Style x:Key="{x:Type DataGridRow}" TargetType="{x:Type DataGridRow}">
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <Setter Property="FontFamily" Value="Arial"></Setter>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -161,19 +162,21 @@
                         </SelectiveScrollingGrid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="DGR_Border" Value="{DynamicResource Brush_DataGridSelected}"/>
                             <Setter Property="Foreground" TargetName="dataGridCellsPresenter" Value="White"/>
                             <Setter Property="Foreground" TargetName="dataGridRowHeader" Value="White"/>
                             <Setter Property="FontSize" TargetName="dataGridRowHeader" Value="13.333"/>
                         </Trigger>
+                        
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="DGR_Border" Property="TextElement.Foreground" Value="{StaticResource Brush_DataGridSelectedForeground}" />
                             <Setter Property="Visibility" TargetName="dataGridDetailsPresenter" Value="Hidden"/>
                             <Setter Property="FontSize" TargetName="dataGridCellsPresenter" Value="12"/>
                             <Setter Property="Background" TargetName="DGR_Border" Value="{DynamicResource Brush_DataGridHeaderMouseOverBackground}"/>
-
                         </Trigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

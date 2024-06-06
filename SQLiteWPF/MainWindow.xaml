@@ -640,16 +640,16 @@
         <!-- DATAGRID -->
         <!-- DATAGRID -->
 
-        <DataGrid x:Name="projectsDataGrid" Grid.Row="1" SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" Margin="10,20,20,10" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="40">
+        <DataGrid x:Name="projectsDataGrid" Grid.Row="1" SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" Margin="10,20,20,10" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="iD" Binding="{Binding iD}" Width="Auto"/>
                 <DataGridTextColumn Header="Création" Binding="{Binding project_creation_date}" Width="Auto"/>
-                <DataGridTextColumn Header="Nom du projet" Binding="{Binding project_name}" Width="2*"/>
+                <DataGridTextColumn Header="Nom du projet" Binding="{Binding project_name}" Width="Auto"/>
                 <DataGridTextColumn Header="Bâtiment" Binding="{Binding project_batiment}" Width="Auto"/>
-                <DataGridTextColumn Header="Ville" Binding="{Binding project_city}" Width="2*"/>
-                <DataGridTextColumn Header="Etages" Binding="{Binding project_floors}" Width="2*"/>
-                <DataGridTextColumn Header="Etages" Binding="{Binding project_specialist}" Width="2*"/>
+                <DataGridTextColumn Header="Ville" Binding="{Binding project_city}" Width="Auto"/>
+                <DataGridTextColumn Header="Etage(s)" Binding="{Binding project_floors}" Width="Auto"/>
+                <DataGridTextColumn Header="Responsable" Binding="{Binding project_specialist}" Width="*"/>
 
 
             </DataGrid.Columns>
@@ -799,7 +799,7 @@
                             <Label Foreground="White" Content="Adresse complète" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                     </Grid>
-                    <m:Map x:Name="myMap" CredentialsProvider="AoUs24yue57NXCgupEBZ6MzAngQkatFB3ZdFf1tDWZoaZ_tgABVE_7iwo_Zm9_n-" Mode="Road" Margin="10,10,10,10" MinHeight="200"/>
+                    <m:Map x:Name="myMap" CredentialsProvider="AoUs24yue57NXCgupEBZ6MzAngQkatFB3ZdFf1tDWZoaZ_tgABVE_7iwo_Zm9_n-" Mode="AerialWithLabels" Margin="10,10,10,10" MinHeight="200"/>
                     <GridSplitter BorderBrush="#FF2D2D2D" BorderThickness="1" Background="#2d2d2d" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Stretch" Height="10">
                         <GridSplitter.Effect>
                             <DropShadowEffect BlurRadius="5" Opacity=".3"/>

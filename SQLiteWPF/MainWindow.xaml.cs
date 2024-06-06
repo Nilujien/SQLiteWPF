@@ -19,6 +19,7 @@ using Path = System.IO.Path;
 using System.Globalization;
 using SQLiteWPF.Properties;
 using Microsoft.Web.WebView2.Wpf;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace SQLiteWPF
 {
@@ -42,6 +43,15 @@ namespace SQLiteWPF
             
             webView.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
             //MessageBox.Show(Path.Combine(Path.GetTempPath()));
+            myMap.SetView(new Microsoft.Maps.MapControl.WPF.Location(48.888058302205025, 2.4023131957530106), 19);
+            
+            Pushpin pin = new Pushpin();
+            pin.Location = new Location(48.888058302205025, 2.4023131957530106);
+            pin.Content = "A";
+            
+
+            myMap.Children.Add(pin);
+
 
             
 
