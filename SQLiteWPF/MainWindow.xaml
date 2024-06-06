@@ -11,11 +11,13 @@
         
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        Title="Hermès - Aménagements et Travaux - Project Manager">
+        Title="Hermès - Aménagements et Travaux - Project Manager" Height="1000" Width="1920">
 
 
 
     <Window.Resources>
+        
+        
 
 
 
@@ -520,9 +522,10 @@
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#1a1a1a"/>
+                                <Setter TargetName="border" Property="Background" Value="#222222"/>
                                 <Setter Property="Foreground" Value="Gray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -622,6 +625,14 @@
             </Setter>
         </Style>
 
+        <ResourceDictionary x:Key="Dark">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DTSB.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+            
+        
+
     </Window.Resources>
 
 
@@ -632,7 +643,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="140"/>
+            <RowDefinition MinHeight="140" Height="Auto"/>
             <RowDefinition MinHeight="150"/>
         </Grid.RowDefinitions>
 
@@ -640,7 +651,7 @@
         <!-- DATAGRID -->
         <!-- DATAGRID -->
 
-        <DataGrid x:Name="projectsDataGrid" Grid.Row="1" SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" Margin="10,20,20,10" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60">
+        <DataGrid x:Name="projectsDataGrid" Grid.Row="1" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" Margin="20,30,30,20" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="iD" Binding="{Binding iD}" Width="Auto"/>
@@ -659,110 +670,10 @@
 
 
         </DataGrid>
-        <ListView x:Name="listView" GridViewColumnHeader.Click="listView_Click"  ItemsSource="{Binding Table}" BorderBrush="white" Grid.Row="2" Margin="20,30,30,20" SelectionChanged="listView_SelectionChanged">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Resources>
-                        <LinearGradientBrush x:Key="ListItemHoverFill" EndPoint="1,0" StartPoint="0,0">
-                            <GradientStop Color="#2d2d2d" Offset="0.5"/>
-                            <GradientStop Color="SkyBlue" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Style.Resources>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <Border CornerRadius="2" SnapsToDevicePixels="True"  
-                                BorderThickness="{TemplateBinding BorderThickness}"   
-                                BorderBrush="{TemplateBinding BorderBrush}"   
-                                Background="{TemplateBinding Background}">
-                                    <Border x:Name="InnerBorder" CornerRadius="10" BorderThickness="1" BorderBrush="Black" Margin="10" Padding="10,0,10,0">
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <!-- Couleur de fond de base de la bordure contenue dans le row -->
-                                                <Setter Property="Background">
-                                                    <Setter.Value>
-                                                        <LinearGradientBrush>
-                                                            <LinearGradientBrush.GradientStops>
-                                                                <GradientStop Color="#2d2d2d" Offset="0"/>
-                                                            </LinearGradientBrush.GradientStops>
-                                                        </LinearGradientBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <!-- MouseOver qui change la couleur du fond de la bordure -->
-
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource ListItemHoverFill}"></Setter>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition MinHeight="50" MaxHeight="50" />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
-
-                                            <Rectangle x:Name="UpperHighlight" Visibility="Collapsed"/>
-                                            <GridViewRowPresenter Grid.RowSpan="2"   
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                        </Grid>
-
-                                    </Border>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-
-                                        <Setter Property="Background" Value="{StaticResource ListItemHoverFill}" />
-                                        <Setter Property="BorderBrush" Value="Red" />
-                                        <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
-                                    </Trigger>
-                                    <!--
-                                    
-                                    -->
-
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Style.Triggers>
-                        <!--
-                        Mouse Over du row !
-                        -->
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ListItemHoverFill}"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-
-            <ListView.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="Transparent" Offset="1"/>
-                </LinearGradientBrush>
-            </ListView.Background>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="iD" Width="100" DisplayMemberBinding="{Binding iD}"/>
-                    <GridViewColumn Header="Date de création"  Width="120" DisplayMemberBinding="{Binding project_creation_date}"/>
-                    <GridViewColumn Header="Nom du projet" Width="Auto" DisplayMemberBinding="{Binding project_name}"/>
-                    <GridViewColumn Header="Batiment"   Width="Auto" DisplayMemberBinding="{Binding project_batiment}"/>
-                    <GridViewColumn Header="Ville"  Width="Auto" DisplayMemberBinding="{Binding project_city}"/>
-                    <GridViewColumn Header="Etage(s)"   Width="Auto" DisplayMemberBinding="{Binding project_floors}"/>
-                    <GridViewColumn Header="Responsable"   Width="Auto" DisplayMemberBinding="{Binding project_specialist}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <!-- ListView à supprimer -->
+        
+        
+        
         <GridSplitter Width="10" Grid.RowSpan="2" BorderBrush="#FF2D2D2D" BorderThickness="1" Background="#2d2d2d">
             <GridSplitter.Effect>
                 <DropShadowEffect BlurRadius="5" Opacity=".3"/>
@@ -773,6 +684,7 @@
                 <DropShadowEffect BlurRadius="5" Opacity=".3"/>
             </GridSplitter.Effect>
         </GridSplitter>
+        <!-- Tab Details -->
         <TabControl x:Name="TabControl_Informations_PDF" Grid.Column="1" Grid.RowSpan="2" Margin="20,20,20,20">
             <TabItem x:Name="TabItem_Informations" Header="Informations" MinWidth="100">
                 <Grid>
@@ -805,6 +717,26 @@
                             <DropShadowEffect BlurRadius="5" Opacity=".3"/>
                         </GridSplitter.Effect>
                     </GridSplitter>
+                    <Border BorderThickness="1,1,1,1" Grid.Row="1" Margin="0,170,0,0">
+                        <Border.BorderBrush>
+                            <DrawingBrush Viewport="0,0,6,6" ViewportUnits="Absolute" TileMode="Tile">
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="Gray">
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <RectangleGeometry Rect="0,0,50,50" />
+                                                    <RectangleGeometry Rect="50,50,50,50" />
+                                                </GeometryGroup>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Border.BorderBrush>
+
+                        <TextBlock Text="Content Goes Here!" Margin="5"/>
+                    </Border>
                 </Grid>
             </TabItem>
             <TabItem x:Name="___TabItem__PDF" Header="PDF" MinWidth="50">
@@ -892,5 +824,8 @@
                 <Grid Background="#1a1a1a"/>
             </TabItem>
         </TabControl>
+        
+        <!-- Fin de la grille principale -->
+        
     </Grid>
 </Window>

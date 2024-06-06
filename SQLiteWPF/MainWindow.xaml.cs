@@ -20,6 +20,7 @@ using System.Globalization;
 using SQLiteWPF.Properties;
 using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Maps.MapControl.WPF;
+using System.Diagnostics;
 
 namespace SQLiteWPF
 {
@@ -248,7 +249,6 @@ namespace SQLiteWPF
                 cmd.Connection = sqliteconn;
                 ds.Clear();     //clear dataset before loading new content to make sure no data mixup
                 sda.Fill(ds);
-                listView.DataContext = ds.Tables[0].DefaultView;
                 projectsDataGrid.DataContext = ds.Tables[0].DefaultView;
             }
             handleConn(sqliteconn);
@@ -281,7 +281,6 @@ namespace SQLiteWPF
                 {
                     //MessageBox.Show("Information successfully submitted");
                     Select(SetupSQLite.sqliteconn);
-                    AutoResizeGridViewColumns((GridView)listView.View);
 
                 }
                 else
@@ -333,6 +332,7 @@ namespace SQLiteWPF
                 Select(SetupSQLite.sqliteconn);
             }
         }
+
         private void handleConn(SQLiteConnection sqliteconn)
         {
             if (sqliteconn.State == ConnectionState.Closed)
@@ -350,26 +350,105 @@ namespace SQLiteWPF
             MessageBox.Show("Hey");
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-            DataRowView dtrv = listView.SelectedItem as DataRowView;
-            if(dtrv != null)
-            {
-                DataRow dtr = dtrv.Row;
-                object[] obj = dtr.ItemArray;
-                foreach (object obj2 in obj)
-                {
-
-                    //MessageBox.Show(obj2.ToString());
-                }
-            }
-            
-        }
 
         private void listView_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("hey");
+        }
+
+        private void ProjectsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (projectsDataGrid.SelectedItems.Count == 1) 
+            {
+                if (projectsDataGrid.SelectedItem != null)
+                {
+                    var selectedRow = (DataGridRow)projectsDataGrid.ItemContainerGenerator.ContainerFromItem(projectsDataGrid.SelectedItem);
+                    if (selectedRow != null)
+                    {
+                        var selectedCells = projectsDataGrid.SelectedCells;
+
+                        if (selectedCells.Count > 1)
+                        {
+
+                        }
+
+                        foreach (var cell in selectedCells)
+                        {
+                            var cellContent = cell.Column.GetCellContent(cell.Item);
+                            // Si le contenu est un TextBlock
+                            Debug.WriteLine(cell.Column.Header.ToString());
+                            if (cellContent is TextBlock textBlock)
+                            {
+                                Debug.WriteLine($"{textBlock.Text}");
+                            }
+                            if (cell.Column.Header.ToString() == "Bâtiment")
+                            {
+                                TextBlock tb = (TextBlock)cellContent;
+                                if (tb != null)
+                                {
+                                    Debug.WriteLine(tb.Text);
+                                    //GetBuildingLocation(tb.Text);
+                                    Location newloc = GetBuildingLocation(tb.Text);
+                                    if (newloc!= null)
+                                    {
+                                        myMap.SetView(GetBuildingLocation(tb.Text), 19);
+                                        Pushpin pushpin = (Pushpin)myMap.Children[0];
+                                        pushpin.Location = GetBuildingLocation(tb.Text);
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public Location GetBuildingLocation(string bat)
+        {
+            string dbpath = Path.Combine(DBDirectory() + @"\HER_Sqlite_DB\DB_00.sqlite");
+            string connectionString = "Data Source=" + dbpath + ";Version=3";
+            Location loc = null;
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT location FROM batiments WHERE nom = @Batiment";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Batiment", bat);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string valueA = reader["location"].ToString();
+                            Debug.WriteLine(valueA);
+
+                            string[] coord = valueA.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (coord.Length == 2) 
+                            {
+                                Debug.WriteLine(coord[0].Trim());
+                                Debug.WriteLine(coord[1].Trim());
+                                double lat = double.Parse(coord[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                                double longi = double.Parse(coord[1].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+
+                                loc = new Location(lat, longi);
+
+                                return loc;
+                            }
+                        }
+                    }
+                }
+                
+            }
+
+            return loc;
+
+            
+            
         }
     }
 }

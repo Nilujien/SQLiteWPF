@@ -168,7 +168,8 @@ namespace SQLiteWPF
                     " ville VARCHAR(50)," +
                     " code_postal INT," +
                     " adresse VARCHAR(50)," + 
-                    " etages TEXT)";
+                    " etages TEXT," +
+                    " location TEXT)";
 
                 using (var command = new SQLiteCommand(createBuildingTableQuery, connection))
                 {
@@ -184,7 +185,7 @@ namespace SQLiteWPF
 
 
 
-                string insertQuery = "INSERT INTO batiments(nom, ville, code_postal, adresse, etages) VALUES (@Nom, @Ville, @CodePostal, @Adresse, @Etages)";
+                string insertQuery = "INSERT INTO batiments(nom, ville, code_postal, adresse, etages, location) VALUES (@Nom, @Ville, @CodePostal, @Adresse, @Etages, @Location)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection)) 
                 {
@@ -196,6 +197,7 @@ namespace SQLiteWPF
                         command.Parameters.AddWithValue("@CodePostal", building.CodePostal);
                         command.Parameters.AddWithValue("@Adresse", building.Adresse);
                         command.Parameters.AddWithValue("@Etages", building.Etages);
+                        command.Parameters.AddWithValue("@Location", building.Location.ToString());
                         command.ExecuteNonQuery();
                     }
                 }
@@ -212,6 +214,7 @@ namespace SQLiteWPF
             public int CodePostal { get; set; }
             public string Adresse { get; set; }
             public string Etages {  get; set; }
+            public string Location { get; set; }
         }
     }
 }

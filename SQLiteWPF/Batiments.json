@@ -4,70 +4,80 @@
     "ville": "PARIS",
     "codepostal": 75008,
     "adresse": "13-15, rue de la Ville-l`Evêque",
-    "etages": "SS4,SS3,SS2,SS1,RDC,R01,R02,R03,R04,R05,R06,R07,R08,R09,R10,R11"
+    "etages": "SS4,SS3,SS2,SS1,RDC,R01,R02,R03,R04,R05,R06,R07,R08,R09,R10,R11",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - A",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "SS1,RDC,MEZ,R01,R02"
+    "etages": "SS1,RDC,MEZ,R01,R02",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - BC1",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "RDC,MEZ"
+    "etages": "RDC,MEZ",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - C2",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "SS1,RDC"
+    "etages": "SS1,RDC",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - D",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "SS1"
+    "etages": "SS1",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - E",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "RDC,R01"
+    "etages": "RDC,R01",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Victor Hugo - F",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
-    "etages": "SS1,RDC,MEZ"
+    "etages": "SS1,RDC,MEZ",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Tour Essor",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "14, rue Scandicci",
-    "etages": "R14"
+    "etages": "R14",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Poulains",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "13, rue Hoche",
-    "etages": "SS1,RDC,R01,R02,R03,R04"
+    "etages": "SS1,RDC,R01,R02,R03,R04",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Peniche",
     "ville": "PANTIN",
     "codepostal": 93500,
     "adresse": "10, rue Auger",
-    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05"
+    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Paddock",
@@ -75,7 +85,7 @@
     "codepostal": 93500,
     "adresse": "1, allée des Ateliers",
     "etages": "SS3,SS2,SS1,RDC,R01,R02,R03,R04",
-    "location": [ 48.89314744530586, 2.4007804008290115 ]
+    "location": "48.89314744530586, 2.4007804008290115"
   },
   {
     "nom": "PANTIN - Logistique",
@@ -83,7 +93,7 @@
     "codepostal": 93500,
     "adresse": "110, avenue du Général Leclerc",
     "etages": "C9-RDC,C9-MEZ,C10-RDC,C10-MEZ,C11-RDC,C11-MEZ",
-    "location": [ 48.90043997558204, 2.4168412263152472 ]
+    "location": "48.90043997558204, 2.4168412263152472"
   },
   {
     "nom": "HBO",
@@ -91,7 +101,7 @@
     "codepostal": 93500,
     "adresse": "14, rue Lesault",
     "etages": "RDC,R01,R02",
-    "location": [ 48.89001711533376, 2.40857739601025 ]
+    "location": "48.89001711533376, 2.40857739601025"
   },
   {
     "nom": "Kanal",
@@ -99,7 +109,7 @@
     "codepostal": 93500,
     "adresse": "159, avenue Jean Lolive",
     "etages": "R04,R05,R06,R07",
-    "location": [ 48.89424142068539, 2.414615476645604 ]
+    "location": "48.89424142068539, 2.414615476645604"
   },
   {
     "nom": "Forum",
@@ -107,7 +117,7 @@
     "codepostal": 93500,
     "adresse": "12, rue Hoche",
     "etages": "SS1,RDC,R01,R02,R03",
-    "location": [ 48.891946403444585, 2.401901422143268 ]
+    "location": "48.891946403444585, 2.401901422143268"
   },
   {
     "nom": "Fabrique",
@@ -115,7 +125,7 @@
     "codepostal": 93500,
     "adresse": "10, rue Auger",
     "etages": "RDC,R01",
-    "location": [ 48.89155232347055, 2.4014748783547875 ]
+    "location": "48.89155232347055, 2.4014748783547875"
   },
   {
     "nom": "EJLD",
@@ -123,7 +133,7 @@
     "codepostal": 93500,
     "adresse": "8, rue Florian",
     "etages": "SS1,SS2,RDC,R01,R02,R03",
-    "location": [ 48.894639386117795, 2.402668125135409 ]
+    "location": "48.894639386117795, 2.402668125135409"
   },
   {
     "nom": "EJLD - Halle",
@@ -131,7 +141,7 @@
     "codepostal": 93500,
     "adresse": "8, rue Florian",
     "etages": "RDC,R01",
-    "location": [ 48.894338506116036, 2.4032610569509045 ]
+    "location": "48.894338506116036, 2.4032610569509045"
   },
   {
     "nom": "CIA",
@@ -139,7 +149,7 @@
     "codepostal": 93500,
     "adresse": "25, rue Honoré d'Estienne d'Orves",
     "etages": "RDC,R01",
-    "location": [ 48.8898687657379, 2.4076803728489162 ]
+    "location": "48.8898687657379, 2.4076803728489162"
   },
   {
     "nom": "Cartier Bresson",
@@ -147,7 +157,7 @@
     "codepostal": 93500,
     "adresse": "87, rue Cartier Bresson",
     "etages": "RDC,R01",
-    "location": [ 48.900456989455, 2.405189351085533 ]
+    "location": "48.900456989455, 2.405189351085533"
   },
   {
     "nom": "19 Estienne D`Orves",
@@ -155,7 +165,7 @@
     "codepostal": 93500,
     "adresse": "19, rue Honoré d'Estienne d'Orves",
     "etages": "RDC",
-    "location": [ 48.88554912757812, 2.4017615337861296 ]
+    "location": "48.88554912757812, 2.4017615337861296"
   },
   {
     "nom": "Bobigny - Bureaux",
@@ -163,7 +173,7 @@
     "codepostal": 93000,
     "adresse": "1-7, avenue de la Convention",
     "etages": "R01,R02,R03,R04",
-    "location": [ 48.91624524910858, 2.42025849252951 ]
+    "location": "48.91624524910858, 2.42025849252951"
   },
   {
     "nom": "Bobigny - Logistique",
@@ -171,7 +181,7 @@
     "codepostal": 93000,
     "adresse": "1, avenue de la Convention",
     "etages": "RDC,R01,R02",
-    "location": [ 48.9159185432421, 2.4195204334081026 ]
+    "location": "48.9159185432421, 2.4195204334081026"
   },
   {
     "nom": "Carrousel",
@@ -179,14 +189,15 @@
     "codepostal": 93310,
     "adresse": "17, rue Lazare Carnot",
     "etages": "SS1,RDC,R01,R02",
-    "location": [ 48.888058302205025, 2.4023131957530106 ]
+    "location": "48.888058302205025, 2.4023131957530106"
   },
   {
     "nom": "Pyramide",
     "ville": "PANTIN",
     "codepostal": 93310,
     "adresse": "12-16, rue Auger",
-    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05,R06"
+    "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05,R06",
+    "location": "1.1, 1.1"
   },
   {
     "nom": "Cama",
@@ -194,7 +205,7 @@
     "codepostal": 93500,
     "adresse": "35, rue Auger",
     "etages": "SS1,RDC,R01,R02",
-    "location": [ 48.89312266280614, 2.3995413480225 ]
+    "location": "48.89312266280614, 2.3995413480225"
   },
   {
     "nom": "Eurogim",
@@ -202,14 +213,15 @@
     "codepostal": 93500,
     "adresse": "5-13, rue Auger",
     "etages": "SS3,SS2,SS1,RDC,R01,R02,R03,R04,R04,R06,R07,R08",
-    "location": [ 48.89150445229032, 2.4001301159124235 ]
+    "location": "48.89150445229032, 2.4001301159124235"
   },
   {
     "nom": "Penthievre",
     "ville": "PARIS",
     "codepostal": 93310,
     "adresse": "17, rue Lazare Carnot",
-    "etages": "SS1,RDC,R01,R02"
+    "etages": "SS1,RDC,R01,R02",
+    "location": "1.1, 1.1"
   }
 
 

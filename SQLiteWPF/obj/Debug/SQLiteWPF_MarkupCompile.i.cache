@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\App.xaml
-2-359108266
+4-1238052268
 5-1459904604
 7-733274599
 25-221317208
-DataGridStyle.xaml;MainWindow.xaml;
+DTSB.xaml;DarkThemeScrollBar.xaml;DataGridStyle.xaml;MainWindow.xaml;
 
-True
+False
 
