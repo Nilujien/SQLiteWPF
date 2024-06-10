@@ -33,7 +33,7 @@ namespace SQLiteWPF
         public SetupSQLite()
         {
             //Si la base données n'est pas trouvée:
-            if (!checkExists("DB_00.sqlite").Result)
+            if (!CheckExists("DB_00.sqlite").Result)
             {       
                 using (var db = new SQLiteConnection(DB_PATH))
                 {
@@ -63,9 +63,9 @@ namespace SQLiteWPF
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public async Task<bool> checkExists(string filename)
+        public Task<bool> CheckExists(string filename)
         {
-            return System.IO.File.Exists(DBDirectory() + @"\HER_Sqlite_DB\" + filename + "");
+            return Task.FromResult(System.IO.File.Exists(DBDirectory() + @"\HER_Sqlite_DB\" + filename + ""));
         }
         /// <summary>
         /// Chemin par défaut de la base de données
@@ -90,7 +90,7 @@ namespace SQLiteWPF
             // Création de la base de données projet---
 
             var command = sqliteconn.CreateCommand();       //create command using the SQLiteConnection      
-            command.CommandText = "CREATE TABLE IF NOT EXISTS project(iD INTEGER PRIMARY KEY, project_creation_date TEXT NOT NULL, project_name VARCHAR(50) NOT NULL, project_completed INT, project_batiment TEXT, project_city TEXT, project_due_date TEXT, project_floors TEXT, project_specialist TEXT, project_floors_PDF TEXT, project_floors_DWG TEXT, project_adress TEXT, project_zip_code INT )";
+            command.CommandText = "CREATE TABLE IF NOT EXISTS project(iD INTEGER PRIMARY KEY, project_creation_date TEXT NOT NULL, project_name VARCHAR(50) NOT NULL, project_completed INT, project_batiment TEXT, project_city TEXT, project_due_date TEXT, project_floors TEXT, project_specialist TEXT, project_floors_PDF TEXT, project_floors_DWG TEXT, project_adress TEXT, project_zip_code INT, project_description TEXT )";
             command.ExecuteNonQuery();      //execute the create command
 
 

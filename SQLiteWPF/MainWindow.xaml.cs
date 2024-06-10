@@ -61,11 +61,6 @@ namespace SQLiteWPF
 
         }
 
-        private void MapExpander_Expanded(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)System.Windows.Application.Current.MainWindow).UpdateLayout();
-        }
-
         private void WebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
         {
             WebView2 webv = (WebView2)sender;
@@ -139,10 +134,10 @@ namespace SQLiteWPF
         /// <param name="projectComments">Premiers commentaires sur le projet.</param>
         /// <param name="sqliteconn">Objet de connection à la base de données.</param>
         /// <returns></returns>
-        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, SQLiteConnection sqliteconn)
+        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, string project_description, SQLiteConnection sqliteconn)
         {
             var command = sqliteconn.CreateCommand();
-            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city) VALUES ('"
+            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city, project_description) VALUES ('"
                 + project_creation_date
                 + "', '"
                 + project_name
@@ -166,6 +161,8 @@ namespace SQLiteWPF
                 + project_adress
                 + "','"
                 + project_city
+                + "','"
+                + project_description
                 + "')";
             handleConn(sqliteconn);
             bool s = command.ExecuteNonQuery() == 1 ? true : false;       //ExecuteNonQuery method returns 1 for success and 0 for failure, if it returns 1 assign boolean value true to indicate a successful commit
@@ -191,7 +188,7 @@ namespace SQLiteWPF
 
             using(var cmd = new SQLiteCommand(query, sqliteconn))
             {
-                sqliteconn.Open();
+                handleConn(sqliteconn);
                 cmd.Parameters.AddWithValue("@nom_batiment", nom_batiment);
                 
                 object result = cmd.ExecuteScalar();
@@ -202,32 +199,47 @@ namespace SQLiteWPF
                     project_city_txtbox.Text = ville_obtenue;
                 }
                 else { }
-                sqliteconn.Close();
+                handleConn(sqliteconn);
             }
         }
+
+        /// <summary>
+        /// Méthode de mise à jour de la liste des étages, d'après le nom du bâtiment
+        /// </summary>
+        /// <param name="sqliteconn"></param>
+        /// <param name="nom_batiment"></param>
         public void UpdateEtagesList(SQLiteConnection sqliteconn, string nom_batiment)
         {
+            // Prédéclaration d'une liste de batiment
             List<string> etages_obtenus = new List<string>();
-
+            // string de la requete SQL de selection
             string query = "SELECT etages FROM batiments WHERE nom = @nom_batiment";
-
+            // utilisation d'une nouvelle commande
             using(var cmd = new SQLiteCommand(query, sqliteconn))
             {
+                // essai
                 try
                 {
+                    // Ouverture de la connection, pas sur la même méthode que pour les autres connexions
                     sqliteconn.Open();
+                    // Ajout de la valeur à la requete
                     cmd.Parameters.AddWithValue("@nom_batiment", nom_batiment);
-
+                    // Renvoi la premiere colonne de la première rangée de l'ensemble de la selection obtenue.
                     object result = cmd.ExecuteScalar();
+                    // Si le resultat de la requete n'est pas null
                     if (result != null && result != DBNull.Value)
                     {
+                        // decoupage des etages obtenus et stockage dans la liste précedemment déclarée
                         etages_obtenus = result.ToString().Split(',').ToList();
-                        //MessageBox.Show(string.Join(" ",etages_obtenus));
+                        // nettoyage des etages précédents de la listbox
                         project_etages_listbox.SelectedItems.Clear();
+                        // attribution d'une nouvelle source à la listbox, d'après la liste construite 
                         project_etages_listbox.ItemsSource = etages_obtenus;
                     }
+                    // fermeture de la connexion
                     sqliteconn.Close();
                 }
+                // tentative de catch d'une opération invalide
                 catch (System.InvalidOperationException ex) 
                 {
                     MessageBox.Show(ex.ToString());
@@ -235,28 +247,47 @@ namespace SQLiteWPF
                 
             }
         }
-
+        
+        /// <summary>
+        /// Sélection du contenu de la base de données.
+        /// Modification du DataContext de la DataGrid des projets.
+        /// </summary>
+        /// <param name="sqliteconn"></param>
         public void Select(SQLiteConnection sqliteconn)      //selecting all data in SQLite db and displaying it in a ListView named listView as declared in XAML
         {
-            DataSet ds = new DataSet();        //dataset used to hold content returned from SQLite db
+            // Prédéclaration d'un objet de stockage de données.
+            DataSet ds = new DataSet();      
 
-            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
+            // string de sélection des différentes colonnes de la table des projets, en classant par iD descendant (projet le plus récent en haut de la liste)
+            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist, project_description FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
+            // Utilisation d'une nouvelle commande SQLiteCommand, prenant la string de sélection en parametre
             using (var cmd = new SQLiteCommand(str_query))
             {
+                // Adaptateur de données SQLite
                 SQLiteDataAdapter sda = new SQLiteDataAdapter();
+                // Ouverture de la connexion
                 handleConn(sqliteconn);
+                // Etablissement de la commande de selection de l'adaptateur de données SQLite
                 sda.SelectCommand = cmd;
+                // Etablissement de la connexion de la commande
                 cmd.Connection = sqliteconn;
+                // Nettoyage de la table de données, bien qu'elle ai été déclarée new précédemment ?
                 ds.Clear();     //clear dataset before loading new content to make sure no data mixup
+                // Remplissage du DataSet par l'adaptateur de données SQLite
                 sda.Fill(ds);
+                // Redefinition des données affichées par la DataGrid
                 projectsDataGrid.DataContext = ds.Tables[0].DefaultView;
             }
+            // Fermeture de la connexion
             handleConn(sqliteconn);
         }
 
         /// <summary>
         /// Methode appellée lors du clic sur le bouton de création d'un nouveau projet.
-        /// Renseigne la base de données des projets avec une injonction INSERT.
+        /// Renseigne la base de données des projets avec une requête INSERT.
+        /// Récupère toutes les valeurs clés de la création d'un projet.
+        /// Le bouton devrait être désactivé par défaut, et activé lorsque toute les demandes de valeur sont satisfaites.
+        /// Cette méthode ne s'occupe pas pour l'instant de savoir si les inputs sont corrects, non vides et réglementaires.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -265,48 +296,48 @@ namespace SQLiteWPF
             try
             {
                 // Ce if est particulierement grossier
-                if (Insert(DateTime.Now.ToString("dd/MM/yyyy"),
-                           project_name_txtbox.Text,
-                           project_batiment_combobox.SelectedItem.ToString(),
-                           0,
-                           DateTime.Now.ToString("dd/MM/yyyy"),
-                           responsable_txtbox.Text,
-                           concatenatePickedFloors(project_etages_listbox.SelectedItems),
+                // Si le resultat booléen de la méthode d'insertion est vrai, créé une nouvelle entrée de projet dans la table projets de la base de données SQL
+                // d'après les valeurs récupérées sur les différent contrôles du formulaire. 
+                
+                if (Insert(DateTime.Now.ToString("dd/MM/yyyy"), // Date de création
+                           project_name_txtbox.Text, // Nom du projet
+                           project_batiment_combobox.SelectedItem.ToString(), // Batiment (nom)
+                           0, // booleen entier de completion du projet
+                           DateTime.Now.ToString("dd/MM/yyyy"), // Date de fin du projet, pour l'instant forcée sur la date du jour
+                           responsable_txtbox.Text, // Nom du responsable du projet
+                           concatenatePickedFloors(project_etages_listbox.SelectedItems), // string concaténée de la liste des étages sélectionnés
                            "PDF", // Fichiers PDF à référencer
                            "DWG", // Fichiers DWG à référencer
                            75008, // Code postal à recueillir d'après le batiment
                            "ProjectAdress", // Adresse à recueillir d'après le batiment
                            project_city_txtbox.Text, // Ville recueillie d'après le batiment
-                           SetupSQLite.sqliteconn))
+                           description_txtbox.Text,
+                           SetupSQLite.sqliteconn)) 
                 {
-                    //MessageBox.Show("Information successfully submitted");
+                    Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
+                    // Reselection de la base de données pour affichage dans la DataGrid
                     Select(SetupSQLite.sqliteconn);
-
                 }
+
+                // Si le resultat de l'insertion est une booleene fausse, signe que l'insertion à échoué
                 else
                 {
                     MessageBox.Show("Oops! Something went wrong");
                 }
             }
 
-
+            // Tentative de catch d'une exception de format
             catch (System.FormatException ex)
             { MessageBox.Show(ex.Message + " >><< "); }
 
             
         }
 
-        static void AutoResizeGridViewColumns(GridView view)
-        {
-            if(view == null || view.Columns.Count < 1) return;
-            foreach(var column in view.Columns)
-            {
-                if (double.IsNaN(column.Width))
-                    column.Width = 1;
-                column.Width = double.NaN;
-            }
-        }
-
+        /// <summary>
+        /// Méthode de concaténation des éléments de sélectionnés dans la listbox des étages du projet
+        /// </summary>
+        /// <param name="etages">Prend une liste en paramètre, la IList des valeurs de la listbox</param>
+        /// <returns></returns>
         private string concatenatePickedFloors(System.Collections.IList etages)
         {
             string concatenatedPickedFloorsString = null;
@@ -323,132 +354,207 @@ namespace SQLiteWPF
             return concatenatedPickedFloorsString;
 
         }
-
+        /// <summary>
+        /// Méthode déclenchée au click du bouton de suppression.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void truncate_btn_Click(object sender, RoutedEventArgs e)
         {
+            // Si le retour booléen de l'appel à la méthode Truncate est vrai, afficher le message de confirmation
             if (Truncate(SetupSQLite.sqliteconn))
             {
+                // Message de confirmation de la suppression de la table
                 MessageBox.Show("Information successfully deleted");
+                // Reselection des données de la base SQL pour affichage sur la datagrid
                 Select(SetupSQLite.sqliteconn);
             }
         }
 
+        /// <summary>
+        /// Méthode controversée par moi, de gérance de la connexion SQLite.
+        /// Cette méthode prend en paramètre une connection.
+        /// Cette méthode est en réalité un switch de l'état de connection.
+        /// </summary>
+        /// <param name="sqliteconn">La connection SQLiteConnection à traiter.</param>
         private void handleConn(SQLiteConnection sqliteconn)
         {
+            // Si la connexion est close
             if (sqliteconn.State == ConnectionState.Closed)
             {
+                // Ouverture de la connexion
                 sqliteconn.Open();
             }
+            // Si la connexion est ouverte
             else
             {
+                // Fermeture de la connexion
                 sqliteconn.Close();
             }
         }
 
-        private void listView_Selected(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hey");
-        }
-
-
-        private void listView_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("hey");
-        }
-
+        /// <summary>
+        /// Cette méthode est déclenchée lorsque la selection du row de la datagrid change, la sélection peut comprendre un seul ou plusieurs rows.
+        /// La méthode actualise la position de la carte. Il faudrait coder une mise à l'échelle en fonction de la taille du batiment.
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProjectsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Debug.WriteLine("____");
+            // Si la selection ne comporte qu'une seule rangée
             if (projectsDataGrid.SelectedItems.Count == 1) 
             {
+                Debug.WriteLine("!");
+                // Si la rangée selectionnée n'est pas nulle, je n'ai jamais rencontré ce cas pour l'instant
                 if (projectsDataGrid.SelectedItem != null)
                 {
+                    // Obtient le DataGridRow sélectionné
                     var selectedRow = (DataGridRow)projectsDataGrid.ItemContainerGenerator.ContainerFromItem(projectsDataGrid.SelectedItem);
+                    // Si le row n'est pas nulle
                     if (selectedRow != null)
                     {
+                        // Obtient les cellules qui composent la rangée sélectionnée
                         var selectedCells = projectsDataGrid.SelectedCells;
 
+                        // Si le nombre de cellules obtenues est supérieur à 1
                         if (selectedCells.Count > 1)
                         {
-
+                            // Ne rien faire pour l'instant
+                            
                         }
 
+                        // Pour chaque cellule des cellules obtenues
                         foreach (var cell in selectedCells)
                         {
+                            // Obtient l'item contenu dans la cellule
                             var cellContent = cell.Column.GetCellContent(cell.Item);
-                            // Si le contenu est un TextBlock
-                            Debug.WriteLine(cell.Column.Header.ToString());
+
+                            // Obtient l'index de la colonne de la cellule
+                            Debug.WriteLine("Index de colonne : " + cell.Column.DisplayIndex);
+                            
+                            // Si l'item contenu dans la cellule est un TextBlock
                             if (cellContent is TextBlock textBlock)
                             {
+                                // Affichage debugage de la valeur du TextBlock
                                 Debug.WriteLine($"{textBlock.Text}");
-                            }
-                            if (cell.Column.Header.ToString() == "Bâtiment")
-                            {
-                                TextBlock tb = (TextBlock)cellContent;
-                                if (tb != null)
+
+                                // Si l'index de la colonne est égal à 2, cette valeur est hard-codée,
+                                // si la position de la colonne change, la mise à jour de la localisation de la carte échouera
+                                // Pour prévenir cet état, la colonne 2 ne peut pas être déplacée par l'utilisateur,
+                                // il est possible de déplacer d'autres colonnes.
+                                if(cell.Column.DisplayIndex == 2)
                                 {
-                                    Debug.WriteLine(tb.Text);
-                                    //GetBuildingLocation(tb.Text);
-                                    Location newloc = GetBuildingLocation(tb.Text);
-                                    if (newloc!= null)
+                                    // Obtention de la localisation d'après le nom du bâtiment
+                                    Location loc = GetBuildingLocation(textBlock.Text);
+                                    // Si la localisation obtenue n'est pas nulle
+                                    if(loc != null)
                                     {
-                                        myMap.SetView(GetBuildingLocation(tb.Text), 19);
-                                        Pushpin pushpin = (Pushpin)myMap.Children[0];
-                                        pushpin.Location = GetBuildingLocation(tb.Text);
+                                        // Paramétrage de la nouvelle vue de la carte
+                                        myMap.SetView(loc, 19);
+                                        // Obtention du PushPin créé dans le constructeur
+                                        Pushpin pp = myMap.Children[0] as Pushpin;
+                                        // Déplacement du PushPin aux coordonnées du bâtiment
+                                        pp.Location = loc;
                                     }
-                                    
                                 }
-                                
                             }
                         }
                     }
                 }
+                // Si la rangée sélectionnée est nulle
+                else
+                {
+                    MessageBox.Show("La rangée sélectionnée n'est pas valide, la valeur retournée est nulle.");
+                }
             }
         }
-
+        /// <summary>
+        /// Méthode d'obtention du bâtiment.
+        /// Cette méthode utilise une requête SQLite pour obtenir les coordonnées du bâtiment, d'après son nom.
+        /// Cette méthode renvoi la Location, créée d'après la string des valeurs "latitude, longitude" stockées dans la BDD.
+        /// </summary>
+        /// <param name="bat"></param>
+        /// <returns></returns>
         public Location GetBuildingLocation(string bat)
         {
+            // Création du chemin d'accès à la base de données
             string dbpath = Path.Combine(DBDirectory() + @"\HER_Sqlite_DB\DB_00.sqlite");
+            // Formatage de la string de connexion pour SQLite
             string connectionString = "Data Source=" + dbpath + ";Version=3";
+            // Prédéclaration de la localisation de la carte
             Location loc = null;
-
+            // Etablissement de la connexion SQLite
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
+                // Ouverture de la connection
                 connection.Open();
-
+                // Etablissement de la requete SQL où @Batiment 
                 string query = "SELECT location FROM batiments WHERE nom = @Batiment";
-
+                // Ouverture d'une nouvelle commande SQLite
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
+                    // Ajout du parametre à la commande
                     command.Parameters.AddWithValue("@Batiment", bat);
+                    // Création d'un lecteur SQLite
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
+                        // Tant que le lecteur lit
                         while (reader.Read())
                         {
+                            // Obtention de la valeur string de la colonne localisation 
                             string valueA = reader["location"].ToString();
+                            // Debug de la valeur de localisation
                             Debug.WriteLine(valueA);
-
+                            // Séparation de la chaine par la virgule, en deux valeurs de string
                             string[] coord = valueA.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            // Si le nombre de string obtenues est égal à 2
                             if (coord.Length == 2) 
                             {
+                                // Débugage des valeurs obtenues
                                 Debug.WriteLine(coord[0].Trim());
                                 Debug.WriteLine(coord[1].Trim());
+                                // Conversion des valeurs string en valeurs double pour la latitude et la longitude
                                 double lat = double.Parse(coord[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
                                 double longi = double.Parse(coord[1].Trim(), System.Globalization.CultureInfo.InvariantCulture);
-
+                                // Attribution de la valeur de localisation renvoyée par la fonction
                                 loc = new Location(lat, longi);
-
+                                // renvoi de la location à la méthdoe
                                 return loc;
                             }
                         }
                     }
                 }
-                
             }
-
+            // renvoi de la location à la méthode
             return loc;
+        }
 
+        /// <summary>
+        /// Tentative de filtrage des row de la datagrid, d'après les valeurs inputées dans les textbox des entêtes de colonnes.
+        /// Cette méthode n'est malheureusement pas cumulative. Cette question pourrait être intéressante à poser sur SOF.
+        /// Cette méthode est appliquée de la sorte à toutes les textbox des entêtes de colonnes de la datagrid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NameTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            // Obtention de la textbox utilisée,
+            TextBox t = (TextBox)sender;
             
+            Debug.WriteLine(t.Name + " : " + t.Text);
+            Debug.WriteLine(projectsDataGrid.DataContext.ToString());
+            // Obtention de la DataView de la DataGrid
+            DataView dv = projectsDataGrid.DataContext as DataView;
+            // Obtention du texte de la TextBox et stockage dans une string
+            string filterstring = t.Text;
+            // Etablissement du filtre sur la DataView
+            dv.RowFilter = t.Tag + " LIKE '%" + t.Text + "%'";
+            Debug.WriteLine("-- " + t.Tag);
             
+
+
         }
     }
 }
