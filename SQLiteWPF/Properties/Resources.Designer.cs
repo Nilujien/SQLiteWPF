@@ -61,6 +61,16 @@ namespace SQLiteWPF.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+        /// </summary>
+        internal static System.Drawing.Icon Icon_Soft {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Soft", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap logo_batiment {
@@ -106,6 +116,16 @@ namespace SQLiteWPF.Properties {
         internal static System.Drawing.Bitmap logo_responsable {
             get {
                 object obj = ResourceManager.GetObject("logo_responsable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_typologies {
+            get {
+                object obj = ResourceManager.GetObject("logo_typologies", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

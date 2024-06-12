@@ -11,7 +11,7 @@
         
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        Title="Hermès - Aménagements et Travaux - Project Manager" Height="1000" Width="1920">
+        Title="Hermès - Aménagements et Travaux - Gestionnaire de Projet" Height="1000" Width="1920">
 
 
 
@@ -406,6 +406,26 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="MonStyleDeBorder2" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" Direction="200"/>
+                </Setter.Value>
+            </Setter>
+            <!-- Ajoutez un effet de survol pour changer la couleur de BorderBrush -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Background" Value="#6a7a93"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- Style de Border de présentation, avec effet de changement de couleur de la bordure au survol du curseur -->
@@ -938,7 +958,6 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="80" Height="Auto"/>
             <RowDefinition MinHeight="150"/>
         </Grid.RowDefinitions>
 
@@ -946,172 +965,9 @@
         <!-- DATAGRID -->
         <!-- DATAGRID -->
 
-        <DataGrid x:Name="projectsDataGrid" Grid.Row="1" BorderBrush="Black" BorderThickness="2" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" Margin="20,30,30,20" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60">
-
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" MinWidth="50" CanUserReorder="False">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="iD" />
-                            <TextBox x:Name="iDTextBox" Tag="iD" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-
-                <DataGridTextColumn Binding="{Binding project_name}" CanUserReorder="False" Width="Auto" MinWidth="250">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Nom du projet" />
-                            <TextBox x:Name="NameTextBox" Tag="project_name" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding project_batiment}" x:Name="Bâtiment" CanUserReorder="False" MinWidth="150" Width="Auto">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Bâtiment" />
-                            <TextBox x:Name="BatimentTextBox" Tag="project_batiment" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding project_city}" Width="Auto" MinWidth="120">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Ville" />
-                            <TextBox x:Name="VilleTextBox" Tag="project_city" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn  Binding="{Binding project_floors}" Width="Auto">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Etages(s)" />
-                            <TextBox x:Name="EtageTextBox" Tag="project_floors" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Creation" />
-                            <TextBox x:Name="CreationDateTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Fin" />
-                            <TextBox x:Name="CreationDateFilterTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding project_specialist}" Width="*">
-                    <DataGridTextColumn.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Responsable" />
-                            <TextBox x:Name="SpecialistFilterTextBox" Tag="project_specialist" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"></Button>
-
-                        </Grid>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-
-
-            </DataGrid.Columns>
-
-
-
-
-
-        </DataGrid>
-
 
 
         <GridSplitter Width="10" Grid.RowSpan="2" BorderBrush="#FF2D2D2D" BorderThickness="1" Background="#2d2d2d">
-            <GridSplitter.Effect>
-                <DropShadowEffect BlurRadius="5" Opacity=".3"/>
-            </GridSplitter.Effect>
-        </GridSplitter>
-        <GridSplitter BorderBrush="#FF2D2D2D" BorderThickness="1" Background="#2d2d2d" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Stretch" Height="10">
             <GridSplitter.Effect>
                 <DropShadowEffect BlurRadius="5" Opacity=".3"/>
             </GridSplitter.Effect>
@@ -1147,7 +1003,7 @@
                             <Label Foreground="White" Content="Date de fin" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
                         </Border>
                         <DatePicker VerticalContentAlignment="Center" Margin="10" Grid.Row="1" Grid.Column="1">
-                            
+
                         </DatePicker>
                         <Border x:Name="Border_Des" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" Margin="10,10,10,10">
                             <Label Foreground="White" Content="Description" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
@@ -1172,8 +1028,167 @@
             </TabItem>
         </TabControl>
         <!-- Nouveau projet -->
-        <TabControl x:Name="TabControl_NouveauProjet_Statistiques" Grid.Column="0" Margin="20,20,30,20">
-            <TabItem x:Name="TabItem_NouveauProjet" Header="Nouveau Projet" MinWidth="120">
+        <TabControl x:Name="TabControl_NouveauProjet_Statistiques" Grid.Column="0" Margin="20,20,30,20" Grid.RowSpan="2">
+            <TabItem x:Name="TabItem_Projets" Header="Projets" MinWidth="120" Height="50">
+                <DataGrid x:Name="projectsDataGrid" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" MinWidth="50" CanUserReorder="False">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="iD" />
+                                    <TextBox x:Name="iDTextBox" Tag="iD" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding project_name}" CanUserReorder="False" Width="Auto" MinWidth="250">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Nom du projet" />
+                                    <TextBox x:Name="NameTextBox" Tag="project_name" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding project_batiment}" x:Name="Bâtiment" CanUserReorder="False" MinWidth="150" Width="Auto">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Bâtiment" />
+                                    <TextBox x:Name="BatimentTextBox" Tag="project_batiment" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding project_city}" Width="Auto" MinWidth="120">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Ville" />
+                                    <TextBox x:Name="VilleTextBox" Tag="project_city" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn  Binding="{Binding project_floors}" Width="Auto">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Etages(s)" />
+                                    <TextBox x:Name="EtageTextBox" Tag="project_floors" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Creation" />
+                                    <TextBox x:Name="CreationDateTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Fin" />
+                                    <TextBox x:Name="CreationDateFilterTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding project_specialist}" Width="*">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Responsable" />
+                                    <TextBox x:Name="SpecialistFilterTextBox" Tag="project_specialist" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+
+                    </DataGrid.Columns>
+
+
+
+
+
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="TabItem_NewProject" Header="Nouveau Projet" MinWidth="120">
                 <DockPanel>
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <!-- Grille de la création de projets -->
@@ -1186,9 +1201,10 @@
                             <Grid.RowDefinitions>
                                 <!-- Definition des rangées de la grille des controles de creation d'un nouveau projet -->
                                 <RowDefinition MinHeight="50"/>
+                                <RowDefinition/>
                                 <RowDefinition MinHeight="50"/>
                                 <RowDefinition MinHeight="50"/>
-                                <RowDefinition MinHeight="120" Height="120" MaxHeight="120"/>
+                                <RowDefinition MinHeight="120"/>
                                 <RowDefinition MinHeight="50"/>
                                 <RowDefinition MinHeight="80"/>
                                 <RowDefinition MinHeight="50"/>
@@ -1196,8 +1212,8 @@
                             <TextBox x:Name="project_name_txtbox" TabIndex="0" Style="{StaticResource CustomTextBoxStyle}" Grid.Column="2" BorderBrush="Black" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
                             <TextBox x:Name="project_city_txtbox" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="1" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D" IsEnabled="False"/>
                             <TextBox x:Name="responsable_txtbox" Style="{StaticResource CustomTextBoxStyle}" TabIndex="3" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
-                            <Button x:Name="submit_btn" Style="{StaticResource BoutonCreation}" Content="Créer le Projet" Click="submit_btn_Click" Grid.Row="6"  Grid.Column="2" Margin="10"/>
-                            <Button x:Name="truncate_btn" Style="{StaticResource BoutonSuppression}" Content="Effacer tout" Click="truncate_btn_Click" Grid.Row="6" Grid.Column="0" Margin="10" Grid.ColumnSpan="2"/>
+                            <Button x:Name="submit_btn" Style="{StaticResource BoutonCreation}" Content="Créer le Projet" Click="submit_btn_Click" Grid.Row="7"  Grid.Column="2" Margin="10"/>
+                            <Button x:Name="truncate_btn" Style="{StaticResource BoutonSuppression}" Content="Effacer tout" Click="truncate_btn_Click" Grid.Row="7" Grid.Column="0" Margin="10" Grid.ColumnSpan="2"/>
                             <Border x:Name="Border_Nom_Projet" Style="{StaticResource MonStyleDeBorder}" Grid.Column="1" ToolTip="Le nom du nouveau projet.&#xA;Cette information ne pourra pas être modifiée au cours de la vie du projet.&#xA;Cette information est indispensable à la création d'un nouveau projet.&#xA;Le nom du projet ne peut être laissé vide.">
 
                                 <Label x:Name="Label_ProjectName1" Content="Nom du projet" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
@@ -1243,14 +1259,35 @@
                             </Border>
                             <Image x:Name="logo_description_projet" Source="/Resources/logo_description_projet.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
                             <TextBox x:Name="description_txtbox" Style="{StaticResource CustomTextBoxStyle}" TabIndex="4" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="5" Grid.Column="2" Margin="10,10,10,10" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Background="#FF2D2D2D"/>
-                            <Grid Grid.ColumnSpan="3" Margin="0,0,20,3" Grid.RowSpan="6"/>
+                            <Grid x:Name="Grid_Typologies" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="6" Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="Border_Typologie_Transfert" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet.">
+
+                                    <Label x:Name="Label_Transfert" Content="TRANSFERT" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="Border_Typologie_Travaux" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10" Grid.Column="1">
+
+                                    <Label x:Name="Label_Travaux" Content="TRAVAUX" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="Border_Typologie_Mobilier" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10" Grid.Column="2">
+
+                                    <Label x:Name="Label_Mobilier" Content="MOBILIER" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                            <Border x:Name="Border_Typologie" Style="{StaticResource MonStyleDeBorder}" Grid.Row="6" Grid.Column="1" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10">
+
+                                <Label x:Name="Description_Projet1" Content="Typologie" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White"/>
+                            </Border>
+                            <Image x:Name="logo_description_projet_Copy" Source="/Resources/logo_typologies.png" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" UseLayoutRounding="True" SnapsToDevicePixels="True" Opacity="0.75"/>
                         </Grid>
                     </ScrollViewer>
                 </DockPanel>
             </TabItem>
-            <TabItem x:Name="TabItem_Statistiques" Header="Statistiques" MinWidth="100">
-                <Grid Background="#1a1a1a"/>
-            </TabItem>
+            <TabItem x:Name="TabItem_Stats" Header="Statistiques" MinWidth="120"/>
         </TabControl>
 
         <!-- Fin de la grille principale -->

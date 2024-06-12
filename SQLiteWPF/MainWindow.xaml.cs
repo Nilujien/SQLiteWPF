@@ -21,6 +21,10 @@ using SQLiteWPF.Properties;
 using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Maps.MapControl.WPF;
 using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Interop;
+using Color = System.Drawing.Color;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace SQLiteWPF
 {
@@ -45,19 +49,53 @@ namespace SQLiteWPF
             webView.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
             //MessageBox.Show(Path.Combine(Path.GetTempPath()));
             myMap.SetView(new Microsoft.Maps.MapControl.WPF.Location(48.888058302205025, 2.4023131957530106), 19);
-            
+
+            Border_Typologie_Travaux.MouseLeftButtonUp += Border_Selector_MouseLeftButtonUp;
+            Border_Typologie_Transfert.MouseLeftButtonUp += Border_Selector_MouseLeftButtonUp;
+            Border_Typologie_Mobilier.MouseLeftButtonUp += Border_Selector_MouseLeftButtonUp;
+
             Pushpin pin = new Pushpin();
             pin.Location = new Location(48.888058302205025, 2.4023131957530106);
             pin.Content = "A";
-            
+
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+            SQLiteWPF.Properties.Resources.Icon_Soft.Handle,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
+
+            this.Icon = imageSource;
 
             myMap.Children.Add(pin);
 
-
+            // Ajouter les typologies de projets : Architectural, Mobilier, Transfert
             
 
             
 
+
+        }
+
+        private void Border_Selector_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Border bord = (Border)sender;
+            Label lab = (Label)bord.Child;
+            if(bord.Tag != null)
+            {
+                if (bord.Tag.ToString() == lab.Content.ToString())
+                {
+                    lab.Foreground = Brushes.White;
+                    bord.Background = Brushes.DarkSlateGray;
+                    bord.Tag = null;
+                }
+            }
+            
+            else
+            {
+                lab.Foreground = Brushes.Black;
+                bord.Background = Brushes.CadetBlue;
+                bord.Tag = lab.Content.ToString();
+            }
+            
 
         }
 
@@ -162,7 +200,7 @@ namespace SQLiteWPF
                 + "','"
                 + project_city
                 + "','"
-                + project_description
+                + project_description.Replace("'", "`")
                 + "')";
             handleConn(sqliteconn);
             bool s = command.ExecuteNonQuery() == 1 ? true : false;       //ExecuteNonQuery method returns 1 for success and 0 for failure, if it returns 1 assign boolean value true to indicate a successful commit
@@ -293,44 +331,55 @@ namespace SQLiteWPF
         /// <param name="e"></param>
         private void submit_btn_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+            if (project_batiment_combobox.SelectedItem != null)
             {
-                // Ce if est particulierement grossier
-                // Si le resultat booléen de la méthode d'insertion est vrai, créé une nouvelle entrée de projet dans la table projets de la base de données SQL
-                // d'après les valeurs récupérées sur les différent contrôles du formulaire. 
-                
-                if (Insert(DateTime.Now.ToString("dd/MM/yyyy"), // Date de création
-                           project_name_txtbox.Text, // Nom du projet
-                           project_batiment_combobox.SelectedItem.ToString(), // Batiment (nom)
-                           0, // booleen entier de completion du projet
-                           DateTime.Now.ToString("dd/MM/yyyy"), // Date de fin du projet, pour l'instant forcée sur la date du jour
-                           responsable_txtbox.Text, // Nom du responsable du projet
-                           concatenatePickedFloors(project_etages_listbox.SelectedItems), // string concaténée de la liste des étages sélectionnés
-                           "PDF", // Fichiers PDF à référencer
-                           "DWG", // Fichiers DWG à référencer
-                           75008, // Code postal à recueillir d'après le batiment
-                           "ProjectAdress", // Adresse à recueillir d'après le batiment
-                           project_city_txtbox.Text, // Ville recueillie d'après le batiment
-                           description_txtbox.Text,
-                           SetupSQLite.sqliteconn)) 
+                try
                 {
-                    Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
-                    // Reselection de la base de données pour affichage dans la DataGrid
-                    Select(SetupSQLite.sqliteconn);
+                    // Ce if est particulierement grossier
+                    // Si le resultat booléen de la méthode d'insertion est vrai, créé une nouvelle entrée de projet dans la table projets de la base de données SQL
+                    // d'après les valeurs récupérées sur les différent contrôles du formulaire. 
+
+                    if (Insert(DateTime.Now.ToString("dd/MM/yyyy"), // Date de création
+                               project_name_txtbox.Text, // Nom du projet
+                               project_batiment_combobox.SelectedItem.ToString(), // Batiment (nom)
+                               0, // booleen entier de completion du projet
+                               DateTime.Now.ToString("dd/MM/yyyy"), // Date de fin du projet, pour l'instant forcée sur la date du jour
+                               responsable_txtbox.Text, // Nom du responsable du projet
+                               concatenatePickedFloors(project_etages_listbox.SelectedItems), // string concaténée de la liste des étages sélectionnés
+                               "PDF", // Fichiers PDF à référencer
+                               "DWG", // Fichiers DWG à référencer
+                               75008, // Code postal à recueillir d'après le batiment
+                               "ProjectAdress", // Adresse à recueillir d'après le batiment
+                               project_city_txtbox.Text, // Ville recueillie d'après le batiment
+                               description_txtbox.Text,
+                               SetupSQLite.sqliteconn))
+                    {
+                        Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
+                        // Reselection de la base de données pour affichage dans la DataGrid
+                        Select(SetupSQLite.sqliteconn);
+                    }
+
+                    // Si le resultat de l'insertion est une booleene fausse, signe que l'insertion à échoué
+                    else
+                    {
+                        MessageBox.Show("Oops! Something went wrong");
+                    }
                 }
 
-                // Si le resultat de l'insertion est une booleene fausse, signe que l'insertion à échoué
-                else
-                {
-                    MessageBox.Show("Oops! Something went wrong");
-                }
+                // Tentative de catch d'une exception de format
+                catch (System.FormatException ex)
+                { MessageBox.Show(ex.Message + " >><< "); }
+
             }
 
-            // Tentative de catch d'une exception de format
-            catch (System.FormatException ex)
-            { MessageBox.Show(ex.Message + " >><< "); }
+            else
+            {
+                Debug.WriteLine("Merci de bien vouloir sélectionner un bâtiment.");
+            }
 
-            
+
+
         }
 
         /// <summary>
@@ -344,11 +393,19 @@ namespace SQLiteWPF
             List<string> listString = etages.Cast<string>().ToList();
             if(etages.Count >0 && etages != null)
             {
-                concatenatedPickedFloorsString = string.Join(",", listString);
+                if(etages.Count == project_etages_listbox.Items.Count)
+                {
+                    concatenatedPickedFloorsString = "Tous";
+                }
+                else
+                {
+                    concatenatedPickedFloorsString = string.Join(",", listString);
+                }
+                
             }
             else
             {
-                concatenatedPickedFloorsString = "Tous";
+                concatenatedPickedFloorsString = "Aucun";
             }
             
             return concatenatedPickedFloorsString;

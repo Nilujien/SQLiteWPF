@@ -88,3 +88,5 @@ C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\obj\Debug\DataGridStyle.b
 C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\obj\Debug\App.baml
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\obj\Debug\DarkThemeScrollBar.baml
 C:\Users\julie\source\repos\Hermes_SQLiteWPF\SQLiteWPF\obj\Debug\DTSB.baml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\obj\Debug\DTSB.baml
+C:\Users\jcuarter\Documents\GitHub\SQLiteWPF\SQLiteWPF\obj\Debug\DarkThemeScrollBar.baml
