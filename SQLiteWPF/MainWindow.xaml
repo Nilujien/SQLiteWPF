@@ -17,6 +17,55 @@
 
     <Window.Resources>
 
+        <Style x:Key="HeaderButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"/>
+           
+            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="0,0,3,0"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Item.project_seen_for_session}" Value="1">
+                                <Setter Property="Background" Value="LightGreen"/>
+                                <Setter Property="Foreground" Value="White"/>
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Item.project_seen_for_session}" Value="0">
+                                <Setter Property="Background" Value="DeepSkyBlue"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            
+        </Style>
+
         <Style x:Key="NonVu_RowHeader" TargetType="{x:Type DataGridRowHeader}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="MinWidth" Value="0" />
@@ -877,7 +926,7 @@
             </Setter>
         </Style>
 
-        <!-- Style pour Button -->
+        <!-- Style pour Button de création -->
         <Style x:Key="BoutonCreation" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -1179,12 +1228,14 @@
                 <!-- DATAGRID ! -->
                 <!-- DATAGRID ! -->
 
-                <DataGrid x:Name="projectsDataGrid" EnableRowVirtualization="False" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
+                <DataGrid x:Name="projectsDataGrid" EnableRowVirtualization="False" CanUserAddRows="False" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
+
+                    
 
                     <DataGrid.RowHeaderTemplate>
                         <DataTemplate>
                             <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" LastChildFill="True">
-                                <Button MinWidth="50" Style="{StaticResource BoutonNonVu}" Margin="0,0,3,0" MinHeight="40" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vu_Button_Click">
+                                <Button MinWidth="50" Style="{StaticResource HeaderButtonStyle}" Margin="0,0,3,0" MinHeight="40" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vu_Button_Click">
 
                                 </Button>
                             </DockPanel>
@@ -1198,6 +1249,13 @@
                         
                         
                         <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" MinWidth="50" CanUserReorder="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1253,9 +1311,7 @@
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
                             
-                        <DataGridCheckBoxColumn>
-
-                        </DataGridCheckBoxColumn>
+                        
                         <DataGridTextColumn Binding="{Binding project_city}" Width="Auto" MinWidth="120">
                             <DataGridTextColumn.Header>
                                 <Grid>
@@ -1487,6 +1543,13 @@
                         <Label Content="Statistiques" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
+                <Grid Margin="10,10,10,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                </Grid>
             </TabItem>
         </TabControl>
 

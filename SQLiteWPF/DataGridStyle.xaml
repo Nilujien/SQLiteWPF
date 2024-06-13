@@ -216,6 +216,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=project_seen_for_session}" Value="1">
+                <Setter Property="Background" Value="LightGreen"/>
+                <Setter Property="Foreground" Value="LightGreen"/>
+                
+            </DataTrigger>
+        </Style.Triggers>
+
     </Style>
 
     <!-- DataGrid -->

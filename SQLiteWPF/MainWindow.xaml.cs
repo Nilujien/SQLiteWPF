@@ -173,11 +173,11 @@ namespace SQLiteWPF
         /// <param name="projectComments">Premiers commentaires sur le projet.</param>
         /// <param name="sqliteconn">Objet de connection à la base de données.</param>
         /// <returns></returns>
-        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, string project_description, string project_typologies, SQLiteConnection sqliteconn)
+        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, string project_description, string project_typologies, int project_seen_for_session, SQLiteConnection sqliteconn)
         {
             var command = sqliteconn.CreateCommand();
 
-            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city, project_description, project_typologies) VALUES ('"
+            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city, project_description, project_typologies, project_seen_for_session) VALUES ('"
                 + project_creation_date
                 + "', '"
                 + project_name
@@ -205,6 +205,8 @@ namespace SQLiteWPF
                 + project_description.Replace("'", "`")
                 + "','"
                 + project_typologies
+                + "','"
+                + project_seen_for_session
                 + "')";
 
             handleConn(sqliteconn);
@@ -296,13 +298,13 @@ namespace SQLiteWPF
         /// Modification du DataContext de la DataGrid des projets.
         /// </summary>
         /// <param name="sqliteconn"></param>
-        public void Select(SQLiteConnection sqliteconn)      //selecting all data in SQLite db and displaying it in a ListView named listView as declared in XAML
+        public void Select(SQLiteConnection sqliteconn)      //selecting all data in SQLite db and displaying it in a DataGrid
         {
             // Prédéclaration d'un objet de stockage de données.
             DataSet ds = new DataSet();      
 
             // string de sélection des différentes colonnes de la table des projets, en classant par iD descendant (projet le plus récent en haut de la liste)
-            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist, project_description, project_typologies FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
+            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist, project_description, project_typologies, project_seen_for_session FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
             // Utilisation d'une nouvelle commande SQLiteCommand, prenant la string de sélection en parametre
             using (var cmd = new SQLiteCommand(str_query))
             {
@@ -357,8 +359,9 @@ namespace SQLiteWPF
                                75008, // Code postal à recueillir d'après le batiment
                                "ProjectAdress", // Adresse à recueillir d'après le batiment
                                project_city_txtbox.Text, // Ville recueillie d'après le batiment
-                               description_txtbox.Text,
-                               concatenatePickedTypologies(),
+                               description_txtbox.Text, // récupère le texte de la description
+                               concatenatePickedTypologies(), // concatene les typologies de projet choisies
+                               0, // projet est il vu pour la session : non lors de sa création
                                SetupSQLite.sqliteconn))
                     {
                         Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
@@ -654,25 +657,75 @@ namespace SQLiteWPF
 
         private void Vu_Button_Click(object sender, RoutedEventArgs e)
         {
-            Style bt_vu = this.FindResource("BoutonVu") as Style;
-            Style bt_non_vu = this.FindResource("BoutonVu") as Style;
-            Button bt = (Button)sender;
-
-            
-            if(bt.Tag == null)
+            Button button = sender as Button;
+            if (button != null)
             {
-                bt.Style = bt_vu;
-                bt.Tag = "Vu";
-                bt.Content = "Vu";
-            }
+                Debug.WriteLine(button.ToString() + " oooooo");
 
-            else
+                // Trouver la DataGridRow parente
+                DataGridRow row = FindVisualParent<DataGridRow>(button);
+                if (row != null)
+                {
+                    // Obtenir la valeur de la cellule de la première colonne (ID dans cet exemple)
+                    DataRowView rowView = row.Item as DataRowView;
+                    if (rowView != null)
+                    {
+                        int projectId = Convert.ToInt32(rowView["iD"]);
+                        Debug.WriteLine($"ID du projet : {projectId}");
+
+                        int current_vue_value = Convert.ToInt32(rowView["project_seen_for_session"]);
+                        Debug.WriteLine($"Valeur vue : {current_vue_value}");
+
+                        
+
+                        int newValue = (current_vue_value == 0) ? 1 : 0;
+                        Debug.WriteLine($"Nouvelle valeur vue : {newValue}");
+
+
+                        UpdateProjectSeenForSessionInDatabase(projectId, newValue);
+
+                    }
+                }
+
+                
+            }
+            DataView dataContext = projectsDataGrid.DataContext as DataView;
+            string current_filter = dataContext.RowFilter;
+            string current_sort = dataContext.Sort;
+            Debug.WriteLine(current_filter + " = Filtre courant");
+            Debug.WriteLine(current_sort + " = Sort courant");
+            Select(SetupSQLite.sqliteconn);
+            DataView dataContext_past = projectsDataGrid.DataContext as DataView;
+            dataContext_past.RowFilter = current_filter;
+            DataView dataContext_past_2 = projectsDataGrid.DataContext as DataView;
+            dataContext_past_2.Sort = current_sort;
+
+        }
+
+        // Méthode utilitaire pour trouver le parent visuel d'un type spécifique
+        public static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+            if (parentObject == null) return null;
+            T parent = parentObject as T;
+            return parent ?? FindVisualParent<T>(parentObject);
+        }
+
+        private void UpdateProjectSeenForSessionInDatabase(int projectId, int newValue)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=" + SetupSQLite.DB_PATH + ";Version=3;"))
             {
-                bt.Style = bt_non_vu;
-                bt.Tag = null;
-                bt.Content = "";
+                connection.Open();
+                Debug.WriteLine("Connexion BDD etablie");
+                string sql = "UPDATE project SET project_seen_for_session = @newValue WHERE iD = @projectId";
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@newValue", newValue);
+                    command.Parameters.AddWithValue("@projectId", projectId);
+                    command.ExecuteNonQuery();
+                    Debug.WriteLine("Transaction BDD effectuee");
+                }
             }
-
         }
     }
 }
