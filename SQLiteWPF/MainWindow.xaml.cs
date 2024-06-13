@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Windows.Interop;
 using Color = System.Drawing.Color;
 using Brushes = System.Windows.Media.Brushes;
+using Image = System.Windows.Controls.Image;
 
 namespace SQLiteWPF
 {
@@ -172,10 +173,11 @@ namespace SQLiteWPF
         /// <param name="projectComments">Premiers commentaires sur le projet.</param>
         /// <param name="sqliteconn">Objet de connection à la base de données.</param>
         /// <returns></returns>
-        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, string project_description, SQLiteConnection sqliteconn)
+        bool Insert(string project_creation_date, string project_name, string project_batiment, int project_completed, string project_due_date, string project_specialist, string project_floors, string project_floors_PDF, string project_floors_DWG, int project_zip_code, string project_adress, string project_city, string project_description, string project_typologies, SQLiteConnection sqliteconn)
         {
             var command = sqliteconn.CreateCommand();
-            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city, project_description) VALUES ('"
+
+            command.CommandText = "INSERT INTO project(project_creation_date, project_name, project_batiment, project_completed, project_due_date, project_specialist, project_floors, project_floors_PDF, project_floors_DWG, project_zip_code, project_adress, project_city, project_description, project_typologies) VALUES ('"
                 + project_creation_date
                 + "', '"
                 + project_name
@@ -201,7 +203,10 @@ namespace SQLiteWPF
                 + project_city
                 + "','"
                 + project_description.Replace("'", "`")
+                + "','"
+                + project_typologies
                 + "')";
+
             handleConn(sqliteconn);
             bool s = command.ExecuteNonQuery() == 1 ? true : false;       //ExecuteNonQuery method returns 1 for success and 0 for failure, if it returns 1 assign boolean value true to indicate a successful commit
             handleConn(sqliteconn);
@@ -297,7 +302,7 @@ namespace SQLiteWPF
             DataSet ds = new DataSet();      
 
             // string de sélection des différentes colonnes de la table des projets, en classant par iD descendant (projet le plus récent en haut de la liste)
-            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist, project_description FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
+            string str_query = "SELECT iD, project_creation_date, project_name, project_completed, project_batiment, project_city, project_due_date, project_floors, project_specialist, project_description, project_typologies FROM project ORDER BY iD DESC"; //consider using LINQ to SQL
             // Utilisation d'une nouvelle commande SQLiteCommand, prenant la string de sélection en parametre
             using (var cmd = new SQLiteCommand(str_query))
             {
@@ -353,6 +358,7 @@ namespace SQLiteWPF
                                "ProjectAdress", // Adresse à recueillir d'après le batiment
                                project_city_txtbox.Text, // Ville recueillie d'après le batiment
                                description_txtbox.Text,
+                               concatenatePickedTypologies(),
                                SetupSQLite.sqliteconn))
                     {
                         Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
@@ -380,6 +386,38 @@ namespace SQLiteWPF
 
 
 
+        }
+
+        private string concatenatePickedTypologies()
+        {
+            string selectedTypos = null;
+            if(Border_Typologie_Transfert.Tag != null)
+            {
+                selectedTypos += Border_Typologie_Transfert.Tag.ToString();
+            }
+            if(Border_Typologie_Travaux.Tag != null)
+            {
+                if(selectedTypos != null)
+                {
+                    selectedTypos += "," + Border_Typologie_Travaux.Tag.ToString();
+                }
+                else
+                {
+                    selectedTypos += Border_Typologie_Travaux.Tag.ToString();
+                }
+            }
+            if(Border_Typologie_Mobilier.Tag != null)
+            {
+                if(selectedTypos != null)
+                {
+                    selectedTypos += "," + Border_Typologie_Mobilier.Tag.ToString();
+                }
+                else
+                {
+                    selectedTypos += Border_Typologie_Mobilier.Tag.ToString();
+                }
+            }
+            return selectedTypos;
         }
 
         /// <summary>
@@ -595,7 +633,7 @@ namespace SQLiteWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NameTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Obtention de la textbox utilisée,
             TextBox t = (TextBox)sender;
@@ -611,6 +649,29 @@ namespace SQLiteWPF
             Debug.WriteLine("-- " + t.Tag);
             
 
+
+        }
+
+        private void Vu_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Style bt_vu = this.FindResource("BoutonVu") as Style;
+            Style bt_non_vu = this.FindResource("BoutonVu") as Style;
+            Button bt = (Button)sender;
+
+            
+            if(bt.Tag == null)
+            {
+                bt.Style = bt_vu;
+                bt.Tag = "Vu";
+                bt.Content = "Vu";
+            }
+
+            else
+            {
+                bt.Style = bt_non_vu;
+                bt.Tag = null;
+                bt.Content = "";
+            }
 
         }
     }

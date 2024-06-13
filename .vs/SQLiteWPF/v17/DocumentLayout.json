@@ -3,15 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\jcuarter\\documents\\github\\sqlitewpf\\sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\jcuarter\\documents\\github\\sqlitewpf\\sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|SQLiteWPF||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\datagridstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\datagridstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -35,10 +39,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\cities.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\cities.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\datagridstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\datagridstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\50c08f4b8b37712ec860bab7df21f342701518bc44829339b754f3091cb31ecf\\ControlTemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -67,10 +67,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\sqlitewpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|c:\\users\\jcuarter\\documents\\github\\sqlitewpf\\sqlitewpf\\properties\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
-      "RelativeMoniker": "D:0:0:{3BABA0C7-45CA-423A-8060-7E5980010EA5}|SQLiteWPF\\SQLiteWPF.csproj|solutionrelative:sqlitewpf\\properties\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
     }
   ],
   "DocumentGroupContainers": [
@@ -80,7 +76,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -88,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml",
@@ -100,14 +96,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Setter.cs",
-              "DocumentMoniker": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "ToolTip": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
+              "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAHECAAAAAAAAAAAiwIkCAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T22:26:46.885Z"
+              "WhenOpened": "2024-06-03T19:24:49.349Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -148,20 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml.cs",
-              "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAgwFYAAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T19:24:49.349Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\App.config",
               "RelativeDocumentMoniker": "SQLiteWPF\\App.config",
@@ -173,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "cities.json",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\cities.json",
               "RelativeDocumentMoniker": "SQLiteWPF\\cities.json",
@@ -185,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "DataGridStyle.xaml",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\DataGridStyle.xaml",
               "RelativeDocumentMoniker": "SQLiteWPF\\DataGridStyle.xaml",
@@ -194,6 +179,28 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-06-05T21:13:37.607Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SQLiteWPF",
+              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
+              "RelativeDocumentMoniker": "SQLiteWPF\\SQLiteWPF.csproj",
+              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
+              "RelativeToolTip": "SQLiteWPF\\SQLiteWPF.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-06-03T12:35:55.9Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Setter.cs",
+              "DocumentMoniker": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "ToolTip": "C:\\Users\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\julie\\AppData\\Local\\Temp\\.vsdbgsrc\\34a53048cbdeb3f1b1f65d3f9bbf9a9831e0d3511804ece04f3516f131e71d55\\Setter.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T22:26:46.885Z"
             },
             {
               "$type": "Document",
@@ -209,19 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SQLiteWPF",
-              "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
-              "RelativeDocumentMoniker": "SQLiteWPF\\SQLiteWPF.csproj",
-              "ToolTip": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SQLiteWPF.csproj",
-              "RelativeToolTip": "SQLiteWPF\\SQLiteWPF.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-03T12:35:55.9Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Batiments.json",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\Batiments.json",
               "RelativeDocumentMoniker": "SQLiteWPF\\Batiments.json",
@@ -258,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SQLiteWPF\\MainWindow.xaml",
@@ -266,11 +261,12 @@
               "RelativeToolTip": "SQLiteWPF\\MainWindow.xaml",
               "ViewState": "AQIAABoDAAAAAAAAAAAuwKwDAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-05T21:43:29.152Z"
+              "WhenOpened": "2024-06-05T21:43:29.152Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "SetupSQLite.cs",
               "DocumentMoniker": "C:\\Users\\jcuarter\\Documents\\GitHub\\SQLiteWPF\\SQLiteWPF\\SetupSQLite.cs",
               "RelativeDocumentMoniker": "SQLiteWPF\\SetupSQLite.cs",

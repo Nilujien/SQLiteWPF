@@ -26,8 +26,8 @@
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="Brush_DataGridHeaderSortedBackground" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="Green" Offset="0" />
-        <GradientStop Color="DarkGreen" Offset="1" />
+        <GradientStop Color="SeaGreen" Offset="0" />
+        <GradientStop Color="Green" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="Brush_DataGridSelected" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -120,7 +120,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" Background="{StaticResource Brush_DataGridHeaderSortedBackground}" BorderBrush="{StaticResource Brush_DataGridHeaderSortedBorder}" Grid.ColumnSpan="2" />
+                        <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" Background="{StaticResource Brush_DataGridHeaderBackground}" BorderBrush="{StaticResource Brush_DataGridHeaderSortedBorder}" Grid.ColumnSpan="2" />
                         <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
                         <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" Grid.Column="1" Width="8" Height="6" Fill="White" Margin="0,0,8,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
                         <Rectangle Width="1" Fill="Black" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
@@ -203,7 +203,6 @@
                             <Setter Property="Background" TargetName="DGR_Border" Value="{DynamicResource Brush_DataGridSelected}"/>
                             <Setter Property="Foreground" TargetName="dataGridCellsPresenter" Value="White"/>
                             <Setter Property="Foreground" TargetName="dataGridRowHeader" Value="White"/>
-                            <Setter Property="FontSize" TargetName="dataGridRowHeader" Value="13.333"/>
                         </Trigger>
                         
                         <Trigger Property="IsSelected" Value="True">

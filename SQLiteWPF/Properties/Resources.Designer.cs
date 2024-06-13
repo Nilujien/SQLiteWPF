@@ -103,6 +103,16 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_liste_projets {
+            get {
+                object obj = ResourceManager.GetObject("logo_liste_projets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_nom_projet {
             get {
                 object obj = ResourceManager.GetObject("logo_nom_projet", resourceCulture);
@@ -113,9 +123,39 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_non_vu {
+            get {
+                object obj = ResourceManager.GetObject("logo_non_vu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_nouveau_projet {
+            get {
+                object obj = ResourceManager.GetObject("logo_nouveau_projet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_responsable {
             get {
                 object obj = ResourceManager.GetObject("logo_responsable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_statistiques_projets {
+            get {
+                object obj = ResourceManager.GetObject("logo_statistiques_projets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +186,16 @@ namespace SQLiteWPF.Properties {
         internal static System.Drawing.Bitmap logo_ville_V2 {
             get {
                 object obj = ResourceManager.GetObject("logo_ville_V2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_vu {
+            get {
+                object obj = ResourceManager.GetObject("logo_vu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

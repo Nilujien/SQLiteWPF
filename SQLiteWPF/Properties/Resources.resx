@@ -130,11 +130,23 @@
   <data name="logo_etages" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_etages.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo_liste_projets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_liste_projets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_nom_projet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_nom_projet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo_non_vu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_non_vu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_nouveau_projet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_nouveau_projet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_responsable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_responsable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_statistiques_projets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_statistiques_projets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_typologies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_typologies.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -144,6 +156,9 @@
   </data>
   <data name="logo_ville_V2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_ville_V2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_vu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_vu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sample" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sample.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

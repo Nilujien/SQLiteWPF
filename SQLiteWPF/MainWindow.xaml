@@ -17,6 +17,72 @@
 
     <Window.Resources>
 
+        <Style x:Key="NonVu_RowHeader" TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" Background="{StaticResource Brush_DataGridHeaderBackground}" BorderBrush="{StaticResource Brush_DataGridHeaderSortedBorder}" Grid.ColumnSpan="2" />
+                            <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" Grid.Column="1" Width="8" Height="6" Fill="White" Margin="0,0,8,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                            <Rectangle Width="1" Fill="Black" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                            <Rectangle Width="1" Margin="0,0,1,0" Fill="SteelBlue" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource Style_HeaderGripper}"/>
+                            <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource Style_HeaderGripper}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource Brush_DataGridHeaderMouseOverBackground}" />
+                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource Brush_DataGridHeaderBorder}" />
+                            </Trigger>
+
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- HEADER DE ROW VU ! -->
+        <!-- HEADER DE ROW VU ! -->
+
+        <Style x:Key="Vu_RowHeader" TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" Background="#71bb71" BorderBrush="{StaticResource Brush_DataGridHeaderSortedBorder}" Grid.ColumnSpan="2" />
+                            <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" Grid.Column="1" Width="8" Height="6" Fill="White" Margin="0,0,8,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                            <Rectangle Width="1" Fill="Black" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                            <Rectangle Width="1" Margin="0,0,1,0" Fill="SteelBlue" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource Style_HeaderGripper}"/>
+                            <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource Style_HeaderGripper}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="ScrollBarLineButton"
        TargetType="{x:Type RepeatButton}">
             <Setter Property="SnapsToDevicePixels"
@@ -732,6 +798,84 @@
             </Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
+        
+        <!-- Style Bouton Vu -->
+        <Style x:Key="BoutonVu" TargetType="Button">
+            <Setter Property="Foreground" Value="LightGreen"/>
+            <Setter Property="Background" Value="LightGreen"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGreen"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="#FF232323"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
+                                <Setter Property="Foreground" Value="LightGreen"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF3E3E3E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Style Bouton Non vu-->
+        <Style x:Key="BoutonNonVu" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="#FF232323"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
+                                <Setter Property="Foreground" Value="LightGreen"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF3E3E3E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!-- Style pour Button -->
         <Style x:Key="BoutonCreation" TargetType="Button">
@@ -752,10 +896,7 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
-                                <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
-                            </Trigger>
+                            
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
                                 <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
@@ -961,9 +1102,6 @@
             <RowDefinition MinHeight="150"/>
         </Grid.RowDefinitions>
 
-        <!-- DATAGRID -->
-        <!-- DATAGRID -->
-        <!-- DATAGRID -->
 
 
 
@@ -1029,10 +1167,36 @@
         </TabControl>
         <!-- Nouveau projet -->
         <TabControl x:Name="TabControl_NouveauProjet_Statistiques" Grid.Column="0" Margin="20,20,30,20" Grid.RowSpan="2">
-            <TabItem x:Name="TabItem_Projets" Header="Projets" MinWidth="120" Height="50">
-                <DataGrid x:Name="projectsDataGrid" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
+            <TabItem x:Name="TabItem_Projets" MinWidth="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <Image Height="32" Width="32" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" Source="/Resources/logo_liste_projets.png" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                        <Label Content="Projets" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                
+                <!-- DATAGRID ! -->
+                <!-- DATAGRID ! -->
+                <!-- DATAGRID ! -->
+
+                <DataGrid x:Name="projectsDataGrid" EnableRowVirtualization="False" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
+
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" LastChildFill="True">
+                                <Button MinWidth="50" Style="{StaticResource BoutonNonVu}" Margin="0,0,3,0" MinHeight="40" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vu_Button_Click">
+
+                                </Button>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
 
                     <DataGrid.Columns>
+                        
+                        
+
+                        
+                        
                         <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" MinWidth="50" CanUserReorder="False">
                             <DataGridTextColumn.Header>
                                 <Grid>
@@ -1045,7 +1209,7 @@
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="iD" />
-                                    <TextBox x:Name="iDTextBox" Tag="iD" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="iDTextBox" Tag="iD" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
@@ -1064,7 +1228,7 @@
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Nom du projet" />
-                                    <TextBox x:Name="NameTextBox" Tag="project_name" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="NameTextBox" Tag="project_name" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
@@ -1081,13 +1245,17 @@
                                         <ColumnDefinition Width="5*"/>
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Bâtiment" />
-                                    <TextBox x:Name="BatimentTextBox" Tag="project_batiment" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Bâtiment" />
+                                    <TextBox x:Name="BatimentTextBox" Tag="project_batiment" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
+                            
+                        <DataGridCheckBoxColumn>
+
+                        </DataGridCheckBoxColumn>
                         <DataGridTextColumn Binding="{Binding project_city}" Width="Auto" MinWidth="120">
                             <DataGridTextColumn.Header>
                                 <Grid>
@@ -1099,8 +1267,8 @@
                                         <ColumnDefinition Width="5*"/>
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Ville" />
-                                    <TextBox x:Name="VilleTextBox" Tag="project_city" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Ville" />
+                                    <TextBox x:Name="VilleTextBox" Tag="project_city" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
@@ -1117,14 +1285,14 @@
                                         <ColumnDefinition Width="5*"/>
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Etages(s)" />
-                                    <TextBox x:Name="EtageTextBox" Tag="project_floors" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Etages(s)" />
+                                    <TextBox x:Name="EtageTextBox" Tag="project_floors" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto">
+                        <DataGridTextColumn Binding="{Binding project_creation_date}" Width="Auto" Visibility="Hidden">
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1136,7 +1304,7 @@
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Foreground="White" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Creation" />
-                                    <TextBox x:Name="CreationDateTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="CreationDateTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}"  Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
@@ -1154,13 +1322,13 @@
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Fin" />
-                                    <TextBox x:Name="CreationDateFilterTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="CreationDateFilterTextBox" Tag="project_creation_date" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding project_specialist}" Width="*">
+                        <DataGridTextColumn Binding="{Binding project_specialist}" Width="Auto">
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1172,7 +1340,26 @@
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Responsable" />
-                                    <TextBox x:Name="SpecialistFilterTextBox" Tag="project_specialist" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="NameTextBox_TextChanged_1" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="SpecialistFilterTextBox" Tag="project_specialist" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+
+                                </Grid>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding project_typologies}" Width="*">
+                            <DataGridTextColumn.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="Typologie" />
+                                    <TextBox x:Name="TypologieFilterTextBox" Tag="project_specialist" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
 
                                 </Grid>
@@ -1188,7 +1375,13 @@
 
                 </DataGrid>
             </TabItem>
-            <TabItem x:Name="TabItem_NewProject" Header="Nouveau Projet" MinWidth="120">
+            <TabItem x:Name="TabItem_NewProject" MinWidth="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="Auto" Margin="10,10,10,10">
+                        <Image Height="32" Width="32" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" Source="/Resources/logo_nouveau_projet.png" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                        <Label Content="Nouveau Projet" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <DockPanel>
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <!-- Grille de la création de projets -->
@@ -1287,7 +1480,14 @@
                     </ScrollViewer>
                 </DockPanel>
             </TabItem>
-            <TabItem x:Name="TabItem_Stats" Header="Statistiques" MinWidth="120"/>
+            <TabItem x:Name="TabItem_Stats" MinWidth="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <Image Height="32" Width="32" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" Source="/Resources/logo_statistiques_projets.png" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                        <Label Content="Statistiques" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
         </TabControl>
 
         <!-- Fin de la grille principale -->
