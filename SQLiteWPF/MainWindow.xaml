@@ -1647,8 +1647,13 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
                     <ScottPlot:WpfPlot x:Name="WPF_Plot_Projets_Villes"/>
+                    <ScottPlot:WpfPlot x:Name="WPF_Plot_Projets_Batiments" Grid.Row="0" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

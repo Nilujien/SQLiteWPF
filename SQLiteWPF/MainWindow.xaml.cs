@@ -29,6 +29,7 @@ using Image = System.Windows.Controls.Image;
 using ScottPlot;
 using Location = Microsoft.Maps.MapControl.WPF.Location;
 using Label = System.Windows.Controls.Label;
+using ScottPlot.Plottables;
 
 namespace SQLiteWPF
 {
@@ -71,7 +72,7 @@ namespace SQLiteWPF
 
             myMap.Children.Add(pin);
 
-            List<PieSlice> pieSlices = new List<PieSlice>
+            List<PieSlice> projets_par_villes_PieSlices = new List<PieSlice>
             {
                 new PieSlice() {Value = 50, FillColor = ScottPlot.Colors.LightSteelBlue, Label = "Paris : " },
                 new PieSlice() {Value = 20, FillColor = ScottPlot.Colors.CadetBlue, Label = "Pantin : " },
@@ -79,17 +80,46 @@ namespace SQLiteWPF
                 new PieSlice() {Value = 10, FillColor = ScottPlot.Colors.PowderBlue, Label = "Bobigny : " }
             };
 
-            foreach(PieSlice pieSlice in pieSlices)
+            List<Bar> projets_par_batiments_Bars = new List<Bar>
+            {
+                new Bar() {Value = 50, FillColor = ScottPlot.Colors.LightSteelBlue, Label = "Paris : " },
+                new Bar() {Value = 20, FillColor = ScottPlot.Colors.CadetBlue, Label = "Pantin : " },
+                new Bar() {Value = 40, FillColor = ScottPlot.Colors.DodgerBlue, Label = "Pré-Saint-Gervais : " },
+                new Bar() {Value = 10, FillColor = ScottPlot.Colors.PowderBlue, Label = "Bobigny : " }
+            };
+
+            double[] values = {5, 10, 25, 13, 10, 12, 32, 16, 28, 30};
+
+            foreach (PieSlice pieSlice in projets_par_villes_PieSlices)
             {
                 pieSlice.Label = pieSlice.Label + pieSlice.Value.ToString();
             }
 
-            var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(pieSlices);
+            //WPF_Plot_Projets_Batiments.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
+
+            
+
+            var bars = WPF_Plot_Projets_Batiments.Plot.Add.Bars(values);
+            
+            // define the content of labels
+            foreach (var bar in bars.Bars)
+            {
+                bar.Label = bar.Value.ToString();
+                
+                bar.FillColor = ScottPlot.Colors.DodgerBlue;
+                
+            }
+            
+            LegendItem lgi = new LegendItem();
+            lgi.LabelText = "Essai";
+            bars.LegendItems.Append(lgi);
+
+            var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(projets_par_villes_PieSlices);
             pie.DonutFraction = .5;
             pie.ExplodeFraction = 0;
             pie.ShowSliceLabels = false;
             pie.SliceLabelDistance = .5;
-            
+
             
             WPF_Plot_Projets_Villes.Plot.HideGrid();
             WPF_Plot_Projets_Villes.Plot.ShowLegend();
@@ -104,13 +134,54 @@ namespace SQLiteWPF
             WPF_Plot_Projets_Villes.Plot.Axes.Bottom.MajorTickStyle.Length = 0;
             WPF_Plot_Projets_Villes.Plot.Axes.Color(ScottPlot.Colors.White);
 
-
-            // Ajouter les typologies de projets : Architectural, Mobilier, Transfert
-
+            // Il faut créer un générateur de ticks d'après le nombre de bâtiments concernés, extraire les valeurs uniques de la colonne batiment
 
 
 
+            Tick[] ticks =
+            {
+                new Tick(0, "Apple"),
+                new Tick(1, "Apple"),
+                new Tick(2, "aaa"),
+                new Tick(3, "Pear"),
+                new Tick(4, "Banana"),
+                new Tick(5, "Apple"),
+                new Tick(6, "Orange"),
+                new Tick(7, "Pear"),
+                new Tick(8, "Banana"),
+                new Tick(9, "Banana"),
+                new Tick(10, "Banana"),
+            };
 
+            bars.ValueLabelStyle.ForeColor = ScottPlot.Colors.White;
+            
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks);
+            
+
+            WPF_Plot_Projets_Batiments.Plot.ShowLegend();
+            //WPF_Plot_Projets_Villes.Plot.Layout.Frameless();
+            WPF_Plot_Projets_Batiments.Plot.DataBackground.Color = ScottPlot.Color.FromHex("#222222");
+            WPF_Plot_Projets_Batiments.Plot.FigureBackground.Color = ScottPlot.Color.FromHex("#222222");
+            WPF_Plot_Projets_Batiments.Plot.Legend.BackgroundColor = ScottPlot.Color.FromHex("#484848");
+            WPF_Plot_Projets_Batiments.Plot.Legend.FontColor = ScottPlot.Colors.White;
+            WPF_Plot_Projets_Batiments.Plot.Legend.OutlineColor = ScottPlot.Colors.White;
+
+            WPF_Plot_Projets_Batiments.Plot.Axes.Title.Label.Text = "Nombre de projets par batiments";
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.MajorTickStyle.Length = 0;
+
+            // Interressant pour planning ?
+            // WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.DateTimeAutomatic();
+            WPF_Plot_Projets_Batiments.Plot.Axes.Color(ScottPlot.Colors.White);
+            WPF_Plot_Projets_Batiments.Plot.Axes.Margins(bottom: 0, top: .2);
+
+
+
+        }
+
+        private void WPF_Plot_Projets_Batiments_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            WPF_Plot_Projets_Batiments.Plot.Axes.AutoScale();
+            Debug.WriteLine("Hey");
         }
 
         private void Border_Selector_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
