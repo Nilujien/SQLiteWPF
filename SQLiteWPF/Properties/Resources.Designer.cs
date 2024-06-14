@@ -103,6 +103,16 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_information {
+            get {
+                object obj = ResourceManager.GetObject("logo_information", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_liste_projets {
             get {
                 object obj = ResourceManager.GetObject("logo_liste_projets", resourceCulture);
@@ -133,9 +143,29 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_nonvu_contextmenu {
+            get {
+                object obj = ResourceManager.GetObject("logo_nonvu_contextmenu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_nouveau_projet {
             get {
                 object obj = ResourceManager.GetObject("logo_nouveau_projet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_pdf {
+            get {
+                object obj = ResourceManager.GetObject("logo_pdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,6 +226,16 @@ namespace SQLiteWPF.Properties {
         internal static System.Drawing.Bitmap logo_vu {
             get {
                 object obj = ResourceManager.GetObject("logo_vu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_vu_contextmenu {
+            get {
+                object obj = ResourceManager.GetObject("logo_vu_contextmenu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

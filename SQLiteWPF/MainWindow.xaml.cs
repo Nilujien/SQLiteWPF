@@ -26,6 +26,9 @@ using System.Windows.Interop;
 using Color = System.Drawing.Color;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
+using ScottPlot;
+using Location = Microsoft.Maps.MapControl.WPF.Location;
+using Label = System.Windows.Controls.Label;
 
 namespace SQLiteWPF
 {
@@ -68,10 +71,44 @@ namespace SQLiteWPF
 
             myMap.Children.Add(pin);
 
-            // Ajouter les typologies de projets : Architectural, Mobilier, Transfert
-            
+            List<PieSlice> pieSlices = new List<PieSlice>
+            {
+                new PieSlice() {Value = 50, FillColor = ScottPlot.Colors.LightSteelBlue, Label = "Paris : " },
+                new PieSlice() {Value = 20, FillColor = ScottPlot.Colors.CadetBlue, Label = "Pantin : " },
+                new PieSlice() {Value = 40, FillColor = ScottPlot.Colors.DodgerBlue, Label = "Pré-Saint-Gervais : " },
+                new PieSlice() {Value = 10, FillColor = ScottPlot.Colors.PowderBlue, Label = "Bobigny : " }
+            };
 
+            foreach(PieSlice pieSlice in pieSlices)
+            {
+                pieSlice.Label = pieSlice.Label + pieSlice.Value.ToString();
+            }
+
+            var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(pieSlices);
+            pie.DonutFraction = .5;
+            pie.ExplodeFraction = 0;
+            pie.ShowSliceLabels = false;
+            pie.SliceLabelDistance = .5;
             
+            
+            WPF_Plot_Projets_Villes.Plot.HideGrid();
+            WPF_Plot_Projets_Villes.Plot.ShowLegend();
+            //WPF_Plot_Projets_Villes.Plot.Layout.Frameless();
+            WPF_Plot_Projets_Villes.Plot.DataBackground.Color = ScottPlot.Color.FromHex("#222222");
+            WPF_Plot_Projets_Villes.Plot.FigureBackground.Color = ScottPlot.Color.FromHex("#222222");
+            WPF_Plot_Projets_Villes.Plot.Legend.BackgroundColor = ScottPlot.Color.FromHex("#484848");
+            WPF_Plot_Projets_Villes.Plot.Legend.FontColor = ScottPlot.Colors.White;
+            WPF_Plot_Projets_Villes.Plot.Legend.OutlineColor = ScottPlot.Colors.White;
+
+            WPF_Plot_Projets_Villes.Plot.Axes.Title.Label.Text = "Nombre de projets par villes";
+            WPF_Plot_Projets_Villes.Plot.Axes.Bottom.MajorTickStyle.Length = 0;
+            WPF_Plot_Projets_Villes.Plot.Axes.Color(ScottPlot.Colors.White);
+
+
+            // Ajouter les typologies de projets : Architectural, Mobilier, Transfert
+
+
+
 
 
         }
@@ -321,7 +358,14 @@ namespace SQLiteWPF
                 // Remplissage du DataSet par l'adaptateur de données SQLite
                 sda.Fill(ds);
                 // Redefinition des données affichées par la DataGrid
-                projectsDataGrid.DataContext = ds.Tables[0].DefaultView;
+                DataTable dttb = ds.Tables[0];
+                DataRow[] filteredRows = dttb.Select("project_completed <> 1");
+                DataTable filtered_dttb = dttb.Clone();
+                foreach(DataRow row in filteredRows)
+                {
+                    filtered_dttb.ImportRow(row);
+                }
+                projectsDataGrid.DataContext = filtered_dttb.DefaultView;
             }
             // Fermeture de la connexion
             handleConn(sqliteconn);
@@ -508,57 +552,27 @@ namespace SQLiteWPF
                 // Si la rangée selectionnée n'est pas nulle, je n'ai jamais rencontré ce cas pour l'instant
                 if (projectsDataGrid.SelectedItem != null)
                 {
+                    DataRowView dtrv = projectsDataGrid.SelectedItem as DataRowView;
+                    var bat_name = dtrv.Row["project_batiment"];
                     // Obtient le DataGridRow sélectionné
                     var selectedRow = (DataGridRow)projectsDataGrid.ItemContainerGenerator.ContainerFromItem(projectsDataGrid.SelectedItem);
                     // Si le row n'est pas nulle
                     if (selectedRow != null)
                     {
-                        // Obtient les cellules qui composent la rangée sélectionnée
-                        var selectedCells = projectsDataGrid.SelectedCells;
-
-                        // Si le nombre de cellules obtenues est supérieur à 1
-                        if (selectedCells.Count > 1)
+                        Location loc = GetBuildingLocation(bat_name.ToString());
+                        // Si la localisation obtenue n'est pas nulle
+                        if (loc != null)
                         {
-                            // Ne rien faire pour l'instant
-                            
+                            // Paramétrage de la nouvelle vue de la carte
+                            myMap.SetView(loc, 19);
+                            // Obtention du PushPin créé dans le constructeur
+                            Pushpin pp = myMap.Children[0] as Pushpin;
+                            // Déplacement du PushPin aux coordonnées du bâtiment
+                            pp.Location = loc;
                         }
-
-                        // Pour chaque cellule des cellules obtenues
-                        foreach (var cell in selectedCells)
-                        {
-                            // Obtient l'item contenu dans la cellule
-                            var cellContent = cell.Column.GetCellContent(cell.Item);
-
-                            // Obtient l'index de la colonne de la cellule
-                            Debug.WriteLine("Index de colonne : " + cell.Column.DisplayIndex);
-                            
-                            // Si l'item contenu dans la cellule est un TextBlock
-                            if (cellContent is TextBlock textBlock)
-                            {
-                                // Affichage debugage de la valeur du TextBlock
-                                Debug.WriteLine($"{textBlock.Text}");
-
-                                // Si l'index de la colonne est égal à 2, cette valeur est hard-codée,
-                                // si la position de la colonne change, la mise à jour de la localisation de la carte échouera
-                                // Pour prévenir cet état, la colonne 2 ne peut pas être déplacée par l'utilisateur,
-                                // il est possible de déplacer d'autres colonnes.
-                                if(cell.Column.DisplayIndex == 2)
-                                {
-                                    // Obtention de la localisation d'après le nom du bâtiment
-                                    Location loc = GetBuildingLocation(textBlock.Text);
-                                    // Si la localisation obtenue n'est pas nulle
-                                    if(loc != null)
-                                    {
-                                        // Paramétrage de la nouvelle vue de la carte
-                                        myMap.SetView(loc, 19);
-                                        // Obtention du PushPin créé dans le constructeur
-                                        Pushpin pp = myMap.Children[0] as Pushpin;
-                                        // Déplacement du PushPin aux coordonnées du bâtiment
-                                        pp.Location = loc;
-                                    }
-                                }
-                            }
-                        }
+                        nom_projet_info.Text = dtrv.Row["project_name"].ToString();
+                        nom_batiment_info.Text = dtrv.Row["project_batiment"].ToString();
+                        etages_projet_info.Text = dtrv.Row["project_floors"].ToString();
                     }
                 }
                 // Si la rangée sélectionnée est nulle
@@ -566,6 +580,11 @@ namespace SQLiteWPF
                 {
                     MessageBox.Show("La rangée sélectionnée n'est pas valide, la valeur retournée est nulle.");
                 }
+            }
+
+            if(projectsDataGrid.SelectedItems == null)
+            {
+
             }
         }
         /// <summary>
@@ -726,6 +745,103 @@ namespace SQLiteWPF
                     Debug.WriteLine("Transaction BDD effectuee");
                 }
             }
+        }
+
+        private void UpdateProjectCompletionInDatabase(int projectId, int newValue)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=" + SetupSQLite.DB_PATH + ";Version=3;"))
+            {
+                connection.Open();
+                Debug.WriteLine("Connexion BDD etablie");
+                string sql = "UPDATE project SET project_completed = @newValue WHERE iD = @projectId";
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@newValue", newValue);
+                    command.Parameters.AddWithValue("@projectId", projectId);
+                    command.ExecuteNonQuery();
+                    Debug.WriteLine("Transaction BDD effectuee");
+                }
+            }
+        }
+
+        private void ContextMenuItemVue_Click(object sender, RoutedEventArgs e) 
+        {
+            MenuItem mit = sender as MenuItem;
+            if(mit.Header.ToString() == "Marquer le(s) Projet(s) comme Vus")
+            {
+                //MessageBox.Show("Hey");
+                var selection = projectsDataGrid.SelectedItems;
+                foreach (DataRowView dgr in selection)
+                {
+                    // identifiants des Rows
+                    var id_values = dgr.Row["iD"];
+                    Debug.WriteLine("iD du row : " + id_values);
+                    UpdateProjectSeenForSessionInDatabase(Convert.ToInt32(id_values), 1);
+
+                }
+                DataView dataContext = projectsDataGrid.DataContext as DataView;
+                string current_filter = dataContext.RowFilter;
+                string current_sort = dataContext.Sort;
+                Debug.WriteLine(current_filter + " = Filtre courant");
+                Debug.WriteLine(current_sort + " = Sort courant");
+                Select(SetupSQLite.sqliteconn);
+                DataView dataContext_past = projectsDataGrid.DataContext as DataView;
+                dataContext_past.RowFilter = current_filter;
+                DataView dataContext_past_2 = projectsDataGrid.DataContext as DataView;
+                
+                dataContext_past_2.Sort = current_sort;
+            }
+            else
+            {
+                var selection = projectsDataGrid.SelectedItems;
+                foreach (DataRowView dgr in selection)
+                {
+                    // identifiants des Rows
+                    var id_values = dgr.Row["iD"];
+                    Debug.WriteLine("iD du row : " + id_values);
+                    UpdateProjectSeenForSessionInDatabase(Convert.ToInt32(id_values), 0);
+
+                }
+                DataView dataContext = projectsDataGrid.DataContext as DataView;
+                string current_filter = dataContext.RowFilter;
+                string current_sort = dataContext.Sort;
+                Debug.WriteLine(current_filter + " = Filtre courant");
+                Debug.WriteLine(current_sort + " = Sort courant");
+                Select(SetupSQLite.sqliteconn);
+                DataView dataContext_past = projectsDataGrid.DataContext as DataView;
+                dataContext_past.RowFilter = current_filter;
+                DataView dataContext_past_2 = projectsDataGrid.DataContext as DataView;
+                dataContext_past_2.Sort = current_sort;
+            }
+            
+        }
+
+        private void ContextMenuItem_CloseProjects(object sender, RoutedEventArgs e)
+        {
+            var selection = projectsDataGrid.SelectedItems;
+            foreach (DataRowView dgr in selection)
+            {
+                // identifiants des Rows
+                var id_values = dgr.Row["iD"];
+                Debug.WriteLine("iD du row : " + id_values);
+                UpdateProjectCompletionInDatabase(Convert.ToInt32(id_values), 1);
+            }
+            DataView dataContext = projectsDataGrid.DataContext as DataView;
+            string current_filter = dataContext.RowFilter;
+            string current_sort = dataContext.Sort;
+            Debug.WriteLine(current_filter + " = Filtre courant");
+            Debug.WriteLine(current_sort + " = Sort courant");
+            Select(SetupSQLite.sqliteconn);
+            DataView dataContext_past = projectsDataGrid.DataContext as DataView;
+            dataContext_past.RowFilter = current_filter;
+            DataView dataContext_past_2 = projectsDataGrid.DataContext as DataView;
+            dataContext_past_2.Sort = current_sort;
+
+        }
+
+        private void ContextMenuItem_DeleteProjects(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Ha !");
         }
     }
 }

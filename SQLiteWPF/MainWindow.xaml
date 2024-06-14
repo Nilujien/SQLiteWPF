@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         xmlns:local="clr-namespace:SQLiteWPF"
         mc:Ignorable="d"
           ResizeMode="CanResizeWithGrip"
@@ -17,13 +18,34 @@
 
     <Window.Resources>
 
+        <Style TargetType="{x:Type DatePicker}">
+            <Style.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+
+            </Style.Resources>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <!-- your triggers here -->
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CustomDatePickerTextBoxStyle" TargetType="{x:Type DatePickerTextBox}">
+            <Setter Property="Background" Value="DarkGray" />
+            <Setter Property="Foreground" Value="White" />
+            <!-- Autres propriétés de style que vous souhaitez personnaliser -->
+        </Style>
+
         <Style x:Key="HeaderButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="LightGray"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="1"/>
-           
+
             <Setter Property="MinWidth" Value="50"/>
             <Setter Property="MinHeight" Value="40"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -43,12 +65,12 @@
                                 <Setter TargetName="border" Property="Background" Value="LightBlue"/>
                             </Trigger>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Item.project_seen_for_session}" Value="1">
-                                <Setter Property="Background" Value="LightGreen"/>
+                                <Setter Property="Background" Value="#518651"/>
                                 <Setter Property="Foreground" Value="White"/>
 
                             </DataTrigger>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Item.project_seen_for_session}" Value="0">
-                                <Setter Property="Background" Value="DeepSkyBlue"/>
+                                <Setter Property="Background" Value="#73a6b8"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </DataTrigger>
                             <Trigger Property="IsPressed" Value="True">
@@ -63,7 +85,7 @@
                 </Setter.Value>
             </Setter>
 
-            
+
         </Style>
 
         <Style x:Key="NonVu_RowHeader" TargetType="{x:Type DataGridRowHeader}">
@@ -847,7 +869,7 @@
             </Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
-        
+
         <!-- Style Bouton Vu -->
         <Style x:Key="BoutonVu" TargetType="Button">
             <Setter Property="Foreground" Value="LightGreen"/>
@@ -886,7 +908,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!-- Style Bouton Non vu-->
         <Style x:Key="BoutonNonVu" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -945,7 +967,7 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            
+
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="LightGreen"/>
                                 <Setter TargetName="border" Property="Background" Value="#FF1E1E1E"/>
@@ -1015,7 +1037,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
+                                Background="#484848"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="5">
@@ -1161,7 +1183,13 @@
         </GridSplitter>
         <!-- Tab Informations -->
         <TabControl x:Name="TabControl_Informations_PDF" Grid.Column="1" Grid.RowSpan="2" Margin="20,20,20,20">
-            <TabItem x:Name="TabItem_Informations" Header="Informations" MinWidth="100">
+            <TabItem x:Name="TabItem_Informations" MinWidth="100">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <Image Height="32" Width="32" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" Source="/Resources/logo_information.png" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                        <Label Content="Informations" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid x:Name="Grid_Info_Generale">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="120" MinHeight="120"/>
@@ -1169,33 +1197,63 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="Grid_Info_Controles" Grid.Row="1" Margin="0,20,0,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition MinHeight="50" MaxHeight="50"/>
-                            <RowDefinition MinHeight="50" MaxHeight="50"/>
-                            <RowDefinition MinHeight="100"/>
-                            <RowDefinition MinHeight="50"/>
-                            <RowDefinition MinHeight="50"/>
-                            <RowDefinition MinHeight="50"/>
-                            <RowDefinition MinHeight="50"/>
-                            <RowDefinition MinHeight="50"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MaxHeight="50" MinHeight="50" Height="1*"/>
+                            <RowDefinition MaxHeight="50" MinHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" MaxHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" Height="2*"/>
+                            <RowDefinition MinHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" Height="1*"/>
+                            <RowDefinition MinHeight="50" Height="1*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="Border_Adresse" Style="{StaticResource MonStyleDeBorder}" Grid.Row="0">
+                        <Border x:Name="Border_Adresse" Style="{StaticResource MonStyleDeBorder}" Grid.Row="3">
                             <Label Foreground="White" Content="Adresse" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
                         </Border>
-                        <TextBox x:Name="adresse_info" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" IsEnabled="False" Margin="10" Background="#2d2d2d"></TextBox>
-                        <Border x:Name="Border_Duree" Style="{StaticResource MonStyleDeBorder}" Grid.Row="1" Margin="10,10,10,10">
-                            <Label Foreground="White" Content="Date de fin" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        <TextBox x:Name="adresse_info" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" Margin="10" Background="#2d2d2d" Grid.Row="3" IsEnabled="False"/>
+                        <Border x:Name="Border_Duree" Style="{StaticResource MonStyleDeBorder}" Grid.Row="6" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Date de fin des Travaux" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
                         </Border>
-                        <DatePicker VerticalContentAlignment="Center" Margin="10" Grid.Row="1" Grid.Column="1">
+                        <DatePicker x:Name="DatePicker_Fin_Travaux" VerticalContentAlignment="Center" Margin="10" Grid.Row="6" Grid.Column="1">
 
                         </DatePicker>
-                        <Border x:Name="Border_Des" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" Margin="10,10,10,10">
+                        <Border x:Name="Border_Des" Style="{StaticResource MonStyleDeBorder}" Grid.Row="8" Margin="10,10,10,10">
                             <Label Foreground="White" Content="Description" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
                         </Border>
-                        <TextBox Foreground="White" Grid.Column="1" AcceptsReturn="True" Grid.Row="2" Style="{StaticResource CustomTextBoxStyle}" Margin="10"></TextBox>
+                        <TextBox x:Name="TextBox_Description_Info" Foreground="White" Grid.Column="1" AcceptsReturn="True" Grid.Row="8" Style="{StaticResource CustomTextBoxStyle}" Margin="10"></TextBox>
+                        <Border x:Name="Border_Nom_Projet_Information" Style="{StaticResource MonStyleDeBorder}" Grid.Row="0" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Projet" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <TextBox x:Name="nom_projet_info" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" Margin="10,10,10,10" Background="#2d2d2d" Grid.Row="0"/>
+                        <Border x:Name="Border_Duree_Copy" Style="{StaticResource MonStyleDeBorder}" Grid.Row="7" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Date de Transfert" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <DatePicker x:Name="DatePicker_Date_Transfert" VerticalContentAlignment="Center" Margin="10,10,10,10" Grid.Row="7" Grid.Column="1">
+
+                        </DatePicker>
+                        <Border x:Name="Border_Nom_Projet_Information_Copy" Style="{StaticResource MonStyleDeBorder}" Grid.Row="1" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Bâtiment" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <TextBox x:Name="nom_batiment_info" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" Margin="10,10,10,10" Background="#2d2d2d" Grid.Row="1" IsEnabled="False"/>
+                        <Border x:Name="Border_Nom_Projet_Information_Copy1" Style="{StaticResource MonStyleDeBorder}" Grid.Row="2" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Etage(s)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <TextBox x:Name="etages_projet_info" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" Margin="10,10,10,10" Background="#2d2d2d" Grid.Row="2" IsEnabled="False"/>
+                        <Border x:Name="Border_Duree_Copy1" Style="{StaticResource MonStyleDeBorder}" Grid.Row="4" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Date de création du Projet" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <TextBox x:Name="adresse_info_Copy" Grid.Column="1" Style="{StaticResource CustomTextBoxStyle}" Margin="10,10,10,10" Background="#2d2d2d" Grid.Row="4" IsEnabled="False"/>
+                        <Border x:Name="Border_Duree_Copy2" Style="{StaticResource MonStyleDeBorder}" Grid.Row="5" Margin="10,10,10,10">
+                            <Label Foreground="White" Content="Date de début des Travaux" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,38,0"/>
+                        </Border>
+                        <DatePicker x:Name="DatePicker_Fin_Travaux_Copy" VerticalContentAlignment="Center" Margin="10,10,10,10" Grid.Row="5" Grid.Column="1"/>
 
 
 
@@ -1208,7 +1266,13 @@
                     </GridSplitter>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="___TabItem__PDF" Header="PDF" MinWidth="50">
+            <TabItem x:Name="TabItem_PDF" MinWidth="50">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <Image Height="32" Width="32" MaxWidth="32" MaxHeight="32" MinWidth="32" MinHeight="32" Source="/Resources/logo_pdf.png" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                        <Label Content="PDF" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid Background="#1a1a1a">
                     <wv2:WebView2 x:Name="webView" Source="C:\sample.pdf" Margin="10,10,10,10"/>
                 </Grid>
@@ -1223,14 +1287,38 @@
                         <Label Content="Projets" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
-                
+
                 <!-- DATAGRID ! -->
                 <!-- DATAGRID ! -->
                 <!-- DATAGRID ! -->
 
                 <DataGrid x:Name="projectsDataGrid" EnableRowVirtualization="False" CanUserAddRows="False" BorderBrush="White" SelectionChanged="ProjectsDataGrid_SelectionChanged"  SelectionMode="Extended" Panel.ZIndex="10000" Background="#222222" AutoGenerateColumns="False" ItemsSource="{Binding Table}" MinRowHeight="60" Margin="10,10,10,10">
 
-                    
+
+                    <DataGrid.Resources>
+                        <ContextMenu
+                            x:Key="RowMenu"
+                            DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                            <MenuItem  Header="Marquer le(s) Projet(s) comme Vus" Click="ContextMenuItemVue_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="Resources/logo_vu_contextmenu.png" ></Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Marquer le(s) Projet(s) comme Non-Vus" Click="ContextMenuItemVue_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="Resources/logo_nonvu_contextmenu.png" ></Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Clôturer le(s) Projet(s)" Click="ContextMenuItem_CloseProjects"/>
+                            <MenuItem Header="Supprimer le(s) Projet(s)" Click="ContextMenuItem_DeleteProjects"/>
+                        </ContextMenu>
+                    </DataGrid.Resources>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
 
                     <DataGrid.RowHeaderTemplate>
                         <DataTemplate>
@@ -1243,12 +1331,8 @@
                     </DataGrid.RowHeaderTemplate>
 
                     <DataGrid.Columns>
-                        
-                        
 
-                        
-                        
-                        <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" MinWidth="50" CanUserReorder="False">
+                        <DataGridTextColumn Binding="{Binding iD}" IsReadOnly="True" x:Name="iD" Width="Auto" CanUserReorder="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -1266,15 +1350,13 @@
                                         <ColumnDefinition Width="5*"/>
                                         <ColumnDefinition Width="*" MinWidth="30" MaxWidth="30"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Content="iD" />
-                                    <TextBox x:Name="iDTextBox" Tag="iD" Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" TextChanged="Filter_TextBox_TextChanged" Margin="0,10,10,10" Text="{Binding Filter, ElementName=mainwindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Button Grid.Row="0" Content="X" Foreground="Red" Grid.Column="1" Style="{StaticResource BoutonSuppression}" Margin="0,10,5,10"/>
+                                    <Label Foreground="White" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Center" Content="iD" />
 
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Binding="{Binding project_name}" CanUserReorder="False" Width="Auto" MinWidth="250">
+                        <DataGridTextColumn Binding="{Binding project_name}" CanUserReorder="False" Width="Auto">
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1292,7 +1374,7 @@
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding project_batiment}" x:Name="Bâtiment" CanUserReorder="False" MinWidth="150" Width="Auto">
+                        <DataGridTextColumn Binding="{Binding project_batiment}" x:Name="Bâtiment" CanUserReorder="False" Width="Auto">
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1310,9 +1392,9 @@
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                            
-                        
-                        <DataGridTextColumn Binding="{Binding project_city}" Width="Auto" MinWidth="120">
+
+
+                        <DataGridTextColumn Binding="{Binding project_city}" Width="Auto">
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1403,7 +1485,18 @@
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Binding="{Binding project_typologies}" Width="*">
+                        <DataGridTextColumn Binding="{Binding project_typologies}" Width="*" MinWidth="90">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                    <Setter Property="AcceptsReturn" Value="true" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
                             <DataGridTextColumn.Header>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -1536,6 +1629,11 @@
                     </ScrollViewer>
                 </DockPanel>
             </TabItem>
+            
+            <!-- TAB STATISTIQUES -->
+            <!-- TAB STATISTIQUES -->
+            <!-- TAB STATISTIQUES -->
+            
             <TabItem x:Name="TabItem_Stats" MinWidth="120">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
@@ -1549,6 +1647,8 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <ScottPlot:WpfPlot x:Name="WPF_Plot_Projets_Villes"/>
                 </Grid>
             </TabItem>
         </TabControl>
