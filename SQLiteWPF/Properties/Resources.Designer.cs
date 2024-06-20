@@ -123,6 +123,16 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_mobilier {
+            get {
+                object obj = ResourceManager.GetObject("logo_mobilier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_nom_projet {
             get {
                 object obj = ResourceManager.GetObject("logo_nom_projet", resourceCulture);
@@ -186,6 +196,36 @@ namespace SQLiteWPF.Properties {
         internal static System.Drawing.Bitmap logo_statistiques_projets {
             get {
                 object obj = ResourceManager.GetObject("logo_statistiques_projets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_transfert {
+            get {
+                object obj = ResourceManager.GetObject("logo_transfert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_transfert_v2 {
+            get {
+                object obj = ResourceManager.GetObject("logo_transfert_v2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_travaux {
+            get {
+                object obj = ResourceManager.GetObject("logo_travaux", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,7 +12,7 @@
         
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        Title="Hermès - Aménagements et Travaux - Gestionnaire de Projet" Height="1000" Width="1920">
+        Title="Hermès - Aménagements et Travaux - Gestionnaire de Projet" Height="1000" Width="1920" UseLayoutRounding="True" SnapsToDevicePixels="True">
 
 
 
@@ -1609,15 +1609,30 @@
                                 </Grid.ColumnDefinitions>
                                 <Border x:Name="Border_Typologie_Transfert" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet.">
 
-                                    <Label x:Name="Label_Transfert" Content="TRANSFERT" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                        <Image Height="32" Width="32" Source="/Resources/logo_transfert_v2.png" MinWidth="32" MinHeight="32" MaxWidth="32" MaxHeight="32" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+
+                                        <Label x:Name="Label_Transfert" Content="TRANSFERT" VerticalContentAlignment="Center" Foreground="White" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+                                    </StackPanel>
                                 </Border>
                                 <Border x:Name="Border_Typologie_Travaux" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10" Grid.Column="1">
 
-                                    <Label x:Name="Label_Travaux" Content="TRAVAUX" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                        <Image Height="32" Width="32" Source="/Resources/logo_travaux.png" MinWidth="32" MinHeight="32" MaxWidth="32" MaxHeight="32" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+
+                                        <Label x:Name="Label_Travaux" Content="TRAVAUX" VerticalContentAlignment="Center" Foreground="White" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+                                    </StackPanel>
                                 </Border>
                                 <Border x:Name="Border_Typologie_Mobilier" Style="{StaticResource MonStyleDeBorder2}" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10" Grid.Column="2">
 
-                                    <Label x:Name="Label_Mobilier" Content="MOBILIER" VerticalContentAlignment="Center" Margin="10,0,10,0" Foreground="White" HorizontalContentAlignment="Center"/>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+
+                                        <Image Height="32" Width="32" Source="/Resources/logo_mobilier.png" MinWidth="32" MinHeight="32" MaxWidth="32" MaxHeight="32" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+
+                                        <Label x:Name="Label_Mobilier" Content="MOBILIER" VerticalContentAlignment="Center" Foreground="White" HorizontalContentAlignment="Center" Margin="20,0,0,0"/>
+                                    </StackPanel>
                                 </Border>
                             </Grid>
                             <Border x:Name="Border_Typologie" Style="{StaticResource MonStyleDeBorder}" Grid.Row="6" Grid.Column="1" ToolTip="Une description du projet, plusieurs lignes peuvent être utilisées.&#xA;Les lignes débutant par un trait d'union seront traitées en tâches.&#xA;Cette information pourra être modifiée au cours de la vie du projet.&#xA;Cette information est optionelle à la création d'un projet." Margin="10,10,10,10">

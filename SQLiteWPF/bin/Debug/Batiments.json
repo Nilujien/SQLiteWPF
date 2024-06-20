@@ -1,7 +1,7 @@
 [
   {
     "nom": "13-15 LVL",
-    "ville": "PARIS",
+    "ville": "Paris",
     "codepostal": 75008,
     "adresse": "13-15, rue de la Ville-l`Evêque",
     "etages": "SS4,SS3,SS2,SS1,RDC,R01,R02,R03,R04,R05,R06,R07,R08,R09,R10,R11",
@@ -9,7 +9,7 @@
   },
   {
     "nom": "Victor Hugo - A",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "SS1,RDC,MEZ,R01,R02",
@@ -17,7 +17,7 @@
   },
   {
     "nom": "Victor Hugo - BC1",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "RDC,MEZ",
@@ -25,7 +25,7 @@
   },
   {
     "nom": "Victor Hugo - C2",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "SS1,RDC",
@@ -33,7 +33,7 @@
   },
   {
     "nom": "Victor Hugo - D",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "SS1",
@@ -41,7 +41,7 @@
   },
   {
     "nom": "Victor Hugo - E",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "RDC,R01",
@@ -49,7 +49,7 @@
   },
   {
     "nom": "Victor Hugo - F",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "41, rue Victor Hugo",
     "etages": "SS1,RDC,MEZ",
@@ -57,7 +57,7 @@
   },
   {
     "nom": "Tour Essor",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "14, rue Scandicci",
     "etages": "R14",
@@ -65,7 +65,7 @@
   },
   {
     "nom": "Poulains",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "13, rue Hoche",
     "etages": "SS1,RDC,R01,R02,R03,R04",
@@ -73,7 +73,7 @@
   },
   {
     "nom": "Peniche",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "10, rue Auger",
     "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05",
@@ -81,15 +81,15 @@
   },
   {
     "nom": "Paddock",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "1, allée des Ateliers",
     "etages": "SS3,SS2,SS1,RDC,R01,R02,R03,R04",
     "location": "48.89314744530586, 2.4007804008290115"
   },
   {
-    "nom": "PANTIN - Logistique",
-    "ville": "PANTIN",
+    "nom": "Pantin - Logistique",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "110, avenue du Général Leclerc",
     "etages": "C9-RDC,C9-MEZ,C10-RDC,C10-MEZ,C11-RDC,C11-MEZ",
@@ -97,7 +97,7 @@
   },
   {
     "nom": "HBO",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "14, rue Lesault",
     "etages": "RDC,R01,R02",
@@ -105,7 +105,7 @@
   },
   {
     "nom": "Kanal",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "159, avenue Jean Lolive",
     "etages": "R04,R05,R06,R07",
@@ -113,7 +113,7 @@
   },
   {
     "nom": "Forum",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "12, rue Hoche",
     "etages": "SS1,RDC,R01,R02,R03",
@@ -121,7 +121,7 @@
   },
   {
     "nom": "Fabrique",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "10, rue Auger",
     "etages": "RDC,R01",
@@ -129,7 +129,7 @@
   },
   {
     "nom": "EJLD",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "8, rue Florian",
     "etages": "SS1,SS2,RDC,R01,R02,R03",
@@ -137,7 +137,7 @@
   },
   {
     "nom": "EJLD - Halle",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "8, rue Florian",
     "etages": "RDC,R01",
@@ -145,15 +145,15 @@
   },
   {
     "nom": "CIA",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "25, rue Honoré d'Estienne d'Orves",
-    "etages": "RDC,R01",
+    "etages": "SS1,RDC",
     "location": "48.8898687657379, 2.4076803728489162"
   },
   {
     "nom": "Cartier Bresson",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "87, rue Cartier Bresson",
     "etages": "RDC,R01",
@@ -161,7 +161,7 @@
   },
   {
     "nom": "19 Estienne D`Orves",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "19, rue Honoré d'Estienne d'Orves",
     "etages": "RDC",
@@ -193,7 +193,7 @@
   },
   {
     "nom": "Pyramide",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93310,
     "adresse": "12-16, rue Auger",
     "etages": "SS2,SS1,RDC,R01,R02,R03,R04,R05,R06",
@@ -201,7 +201,7 @@
   },
   {
     "nom": "Cama",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "35, rue Auger",
     "etages": "SS1,RDC,R01,R02",
@@ -209,7 +209,7 @@
   },
   {
     "nom": "Eurogim",
-    "ville": "PANTIN",
+    "ville": "Pantin",
     "codepostal": 93500,
     "adresse": "5-13, rue Auger",
     "etages": "SS3,SS2,SS1,RDC,R01,R02,R03,R04,R04,R06,R07,R08",
@@ -217,7 +217,7 @@
   },
   {
     "nom": "Penthievre",
-    "ville": "PARIS",
+    "ville": "Paris",
     "codepostal": 93310,
     "adresse": "17, rue Lazare Carnot",
     "etages": "SS1,RDC,R01,R02",

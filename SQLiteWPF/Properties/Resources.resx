@@ -136,6 +136,9 @@
   <data name="logo_liste_projets" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_liste_projets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo_mobilier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_mobilier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_nom_projet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_nom_projet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -156,6 +159,15 @@
   </data>
   <data name="logo_statistiques_projets" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_statistiques_projets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_transfert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_transfert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_transfert_v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_transfert_v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_travaux" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_travaux.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_typologies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_typologies.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

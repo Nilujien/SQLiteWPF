@@ -30,6 +30,7 @@ using ScottPlot;
 using Location = Microsoft.Maps.MapControl.WPF.Location;
 using Label = System.Windows.Controls.Label;
 using ScottPlot.Plottables;
+using SkiaSharp;
 
 namespace SQLiteWPF
 {
@@ -72,49 +73,60 @@ namespace SQLiteWPF
 
             myMap.Children.Add(pin);
 
-            List<PieSlice> projets_par_villes_PieSlices = new List<PieSlice>
-            {
-                new PieSlice() {Value = 50, FillColor = ScottPlot.Colors.LightSteelBlue, Label = "Paris : " },
-                new PieSlice() {Value = 20, FillColor = ScottPlot.Colors.CadetBlue, Label = "Pantin : " },
-                new PieSlice() {Value = 40, FillColor = ScottPlot.Colors.DodgerBlue, Label = "Pré-Saint-Gervais : " },
-                new PieSlice() {Value = 10, FillColor = ScottPlot.Colors.PowderBlue, Label = "Bobigny : " }
-            };
+            // Données graphique : nombre de projets par villes
 
-            List<Bar> projets_par_batiments_Bars = new List<Bar>
-            {
-                new Bar() {Value = 50, FillColor = ScottPlot.Colors.LightSteelBlue, Label = "Paris : " },
-                new Bar() {Value = 20, FillColor = ScottPlot.Colors.CadetBlue, Label = "Pantin : " },
-                new Bar() {Value = 40, FillColor = ScottPlot.Colors.DodgerBlue, Label = "Pré-Saint-Gervais : " },
-                new Bar() {Value = 10, FillColor = ScottPlot.Colors.PowderBlue, Label = "Bobigny : " }
-            };
+            // Il faut obtenir toutes les villes présentes dans les projets. 
+            // J'aimerais construire une méthode simple d'obtention des valeurs uniques d'une colonne de la table des projets
 
-            double[] values = {5, 10, 25, 13, 10, 12, 32, 16, 28, 30};
+            List<string> villes_presentes = GetUniqueCityValuesFromBDD();
+            List<PieSlice> projets_par_villes_PS = new List<PieSlice>();
 
-            foreach (PieSlice pieSlice in projets_par_villes_PieSlices)
+            WPF_Plot_Projets_Villes.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
+
+            if (villes_presentes.Count > 0)
             {
-                pieSlice.Label = pieSlice.Label + pieSlice.Value.ToString();
+                int color_index = 0;
+                List<ScottPlot.Color> ie_colors = ScottPlot.Colors.RandomHue(villes_presentes.Count).ToList();
+                foreach(string ville in  villes_presentes)
+                {
+                    int nb_projets_pour_ville = GetNumberOfProjectsForCity(ville);
+                    PieSlice pieSlice = new PieSlice() {Value = nb_projets_pour_ville, Label = ville, FillColor = ie_colors[color_index]};
+                    color_index += 1;
+                    projets_par_villes_PS.Add(pieSlice);
+                }
+            }
+            foreach (PieSlice pieSlice in projets_par_villes_PS)
+            {
+                pieSlice.Label = pieSlice.Label + " = " + pieSlice.Value.ToString() + " (u)";
             }
 
-            //WPF_Plot_Projets_Batiments.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
+
+            // Données graphique : nombre de projets par bâtiments
+
+            double[] values = { 5, 10, 25, 13, 10, 12, 32, 16, 28, 30, 11, 12, 13, 14, 15 };
+
+
+
+            WPF_Plot_Projets_Batiments.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
+
+            List<ScottPlot.Color> ie_colors_bars = ScottPlot.Colors.RandomHue(values.Length).ToList();
 
             
 
             var bars = WPF_Plot_Projets_Batiments.Plot.Add.Bars(values);
-            
+
+            int color_index_bar = 0;
+
             // define the content of labels
             foreach (var bar in bars.Bars)
             {
                 bar.Label = bar.Value.ToString();
-                
-                bar.FillColor = ScottPlot.Colors.DodgerBlue;
+                bar.FillColor = ie_colors_bars[color_index_bar];
+                color_index_bar += 1;
                 
             }
-            
-            LegendItem lgi = new LegendItem();
-            lgi.LabelText = "Essai";
-            bars.LegendItems.Append(lgi);
 
-            var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(projets_par_villes_PieSlices);
+            var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(projets_par_villes_PS);
             pie.DonutFraction = .5;
             pie.ExplodeFraction = 0;
             pie.ShowSliceLabels = false;
@@ -136,26 +148,29 @@ namespace SQLiteWPF
 
             // Il faut créer un générateur de ticks d'après le nombre de bâtiments concernés, extraire les valeurs uniques de la colonne batiment
 
+            
 
+            List<string> batiments_uniques = GetUniqueBatimentsValuesFromBDD();
+            List<Tick> list_ticks = new List<Tick>();
+            
 
-            Tick[] ticks =
+            if ( batiments_uniques.Count > 0)
             {
-                new Tick(0, "Apple"),
-                new Tick(1, "Apple"),
-                new Tick(2, "aaa"),
-                new Tick(3, "Pear"),
-                new Tick(4, "Banana"),
-                new Tick(5, "Apple"),
-                new Tick(6, "Orange"),
-                new Tick(7, "Pear"),
-                new Tick(8, "Banana"),
-                new Tick(9, "Banana"),
-                new Tick(10, "Banana"),
-            };
+                
+                int tick_count = 0;
+                foreach(string bat in  batiments_uniques )
+                {
+                    Tick tick = new Tick(tick_count, bat);
+                    tick_count++;
+                    list_ticks.Add(tick);
+                }
+            }
+
+            Tick[] ticks_enum = list_ticks.ToArray();
 
             bars.ValueLabelStyle.ForeColor = ScottPlot.Colors.White;
             
-            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks);
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks_enum);
             
 
             WPF_Plot_Projets_Batiments.Plot.ShowLegend();
@@ -165,9 +180,24 @@ namespace SQLiteWPF
             WPF_Plot_Projets_Batiments.Plot.Legend.BackgroundColor = ScottPlot.Color.FromHex("#484848");
             WPF_Plot_Projets_Batiments.Plot.Legend.FontColor = ScottPlot.Colors.White;
             WPF_Plot_Projets_Batiments.Plot.Legend.OutlineColor = ScottPlot.Colors.White;
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickLabelStyle.Rotation = 45;
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickLabelStyle.Alignment = Alignment.MiddleLeft;
+
+            // determine the width of the largest tick label
+            float largestLabelWidth = 0;
+            SKPaint paint = new SKPaint();
+            foreach (Tick tick in ticks_enum)
+            {
+                PixelSize size = WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickLabelStyle.Measure(tick.Label, paint).Size;
+                largestLabelWidth = Math.Max(largestLabelWidth, size.Width);
+            }
+
+            // ensure axis panels do not get smaller than the largest label
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.MinimumSize = largestLabelWidth;
+            WPF_Plot_Projets_Batiments.Plot.Axes.Right.MinimumSize = largestLabelWidth;
 
             WPF_Plot_Projets_Batiments.Plot.Axes.Title.Label.Text = "Nombre de projets par batiments";
-            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.MajorTickStyle.Length = 0;
+            WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.MajorTickStyle.Length = 10;
 
             // Interressant pour planning ?
             // WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.DateTimeAutomatic();
@@ -176,6 +206,80 @@ namespace SQLiteWPF
 
 
 
+        }
+
+        private int GetNumberOfProjectsForCity(string ville)
+        {
+            int result = 0;
+
+            string query = "SELECT COUNT(*) FROM project WHERE project_city = @ville";
+
+            using (var cmd = new SQLiteCommand(query, SetupSQLite.sqliteconn))
+            {
+                handleConn(SetupSQLite.sqliteconn);
+                cmd.Parameters.AddWithValue("@ville", ville);
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+                handleConn(SetupSQLite.sqliteconn);
+            }
+
+            return result;
+        }
+
+        private List<string> GetUniqueCityValuesFromBDD()
+        {
+            List<string> result = new List<string>();
+
+            string query = "SELECT DISTINCT project_city FROM project";
+
+            using (var cmd = new SQLiteCommand(query, SetupSQLite.sqliteconn))
+            {
+                
+
+
+                handleConn(SetupSQLite.sqliteconn);
+
+                //cmd.Parameters.AddWithValue("@colonne", colonne);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Debug.WriteLine(reader["project_city"]);
+                        result.Add(reader["project_city"].ToString());
+                    }
+                }
+                handleConn(SetupSQLite.sqliteconn);
+            }
+            //Debug.WriteLine("Villes uniques récupérées : " + String.Join(", ", result.ToArray()));
+            return result;
+        }
+        private List<string> GetUniqueBatimentsValuesFromBDD()
+        {
+            List<string> result = new List<string>();
+
+            string query = "SELECT DISTINCT project_batiment FROM project";
+
+            using (var cmd = new SQLiteCommand(query, SetupSQLite.sqliteconn))
+            {
+                
+
+
+                handleConn(SetupSQLite.sqliteconn);
+
+                //cmd.Parameters.AddWithValue("@colonne", colonne);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Debug.WriteLine(reader["project_batiment"]);
+                        result.Add(reader["project_batiment"].ToString());
+                    }
+                }
+                handleConn(SetupSQLite.sqliteconn);
+            }
+            //Debug.WriteLine("Villes uniques récupérées : " + String.Join(", ", result.ToArray()));
+            return result;
         }
 
         private void WPF_Plot_Projets_Batiments_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -187,23 +291,33 @@ namespace SQLiteWPF
         private void Border_Selector_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Border bord = (Border)sender;
-            Label lab = (Label)bord.Child;
-            if(bord.Tag != null)
+            StackPanel st = (StackPanel)bord.Child;
+            foreach(var v in st.Children)
             {
-                if (bord.Tag.ToString() == lab.Content.ToString())
+                if(v is Label)
                 {
-                    lab.Foreground = Brushes.White;
-                    bord.Background = Brushes.DarkSlateGray;
-                    bord.Tag = null;
+                    Label lab = (Label)v;
+
+                    if (bord.Tag != null)
+                    {
+                        if (bord.Tag.ToString() == lab.Content.ToString())
+                        {
+                            lab.Foreground = Brushes.White;
+                            bord.Background = Brushes.DarkSlateGray;
+                            bord.Tag = null;
+                        }
+                    }
+
+                    else
+                    {
+                        lab.Foreground = Brushes.Black;
+                        bord.Background = Brushes.CadetBlue;
+                        bord.Tag = lab.Content.ToString();
+                    }
                 }
             }
             
-            else
-            {
-                lab.Foreground = Brushes.Black;
-                bord.Background = Brushes.CadetBlue;
-                bord.Tag = lab.Content.ToString();
-            }
+            
             
 
         }
