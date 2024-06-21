@@ -83,6 +83,26 @@ namespace SQLiteWPF.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_contextmenu_cloturer {
+            get {
+                object obj = ResourceManager.GetObject("logo_contextmenu_cloturer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_contextmenu_supprimer {
+            get {
+                object obj = ResourceManager.GetObject("logo_contextmenu_supprimer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_description_projet {
             get {
                 object obj = ResourceManager.GetObject("logo_description_projet", resourceCulture);

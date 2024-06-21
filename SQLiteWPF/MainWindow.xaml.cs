@@ -78,53 +78,57 @@ namespace SQLiteWPF
             // Il faut obtenir toutes les villes présentes dans les projets. 
             // J'aimerais construire une méthode simple d'obtention des valeurs uniques d'une colonne de la table des projets
 
-            List<string> villes_presentes = GetUniqueCityValuesFromBDD();
-            List<PieSlice> projets_par_villes_PS = new List<PieSlice>();
+            InitializeScottPlotGraphs();
 
+
+
+        }
+
+        private void InitializeScottPlotGraphs()
+        {
+            // Obtention des villes uniques présentes dans la table des projets, indépendament du fait qu'ils soient cloturés ou non
+            List<string> villes_presentes = GetUniqueCityValuesFromBDD();
+            // Liste vide de parts de tartes pour affichage graphique
+            List<PieSlice> projets_par_villes_PS = new List<PieSlice>();
+            // Tentatative d'établissement d'une palette de couleur pour les éléments du graphique, sans succès pour l'instant
             WPF_Plot_Projets_Villes.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
 
+            // Si au moins une ville est présente
             if (villes_presentes.Count > 0)
             {
+                // Etablissement d'un compteur de couleurs
                 int color_index = 0;
+                // Création de couleurs aléatoires d'après le nombre de villes, stockage dans une liste
                 List<ScottPlot.Color> ie_colors = ScottPlot.Colors.RandomHue(villes_presentes.Count).ToList();
-                foreach(string ville in  villes_presentes)
+                // Pour chaque ville présente dans la liste
+                foreach (string ville in villes_presentes)
                 {
+                    // Obtention du nombre de projets par ville, indépendamment du fait qu'ils soient cloturés ou non
                     int nb_projets_pour_ville = GetNumberOfProjectsForCity(ville);
-                    PieSlice pieSlice = new PieSlice() {Value = nb_projets_pour_ville, Label = ville, FillColor = ie_colors[color_index]};
+                    // Création d'une nouvelle part de tarte
+                    PieSlice pieSlice = new PieSlice() { Value = nb_projets_pour_ville, Label = ville, FillColor = ie_colors[color_index] };
+                    // Incrément de l'index des couleurs
                     color_index += 1;
+                    // Ajout de la part de tarte à la liste des parts de tarte pour envoi au graphique
                     projets_par_villes_PS.Add(pieSlice);
                 }
             }
+            // Pour chaque part de tarte présente dans la liste
             foreach (PieSlice pieSlice in projets_par_villes_PS)
             {
+                // Concaténation du label, avec les unités et le nombre de projets
                 pieSlice.Label = pieSlice.Label + " = " + pieSlice.Value.ToString() + " (u)";
             }
 
 
             // Données graphique : nombre de projets par bâtiments
-
-            double[] values = { 5, 10, 25, 13, 10, 12, 32, 16, 28, 30, 11, 12, 13, 14, 15 };
-
-
-
-            WPF_Plot_Projets_Batiments.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
-
-            List<ScottPlot.Color> ie_colors_bars = ScottPlot.Colors.RandomHue(values.Length).ToList();
+            // Il faut obtenir ici le nombre de projets par bâtiments
 
             
 
-            var bars = WPF_Plot_Projets_Batiments.Plot.Add.Bars(values);
-
             int color_index_bar = 0;
 
-            // define the content of labels
-            foreach (var bar in bars.Bars)
-            {
-                bar.Label = bar.Value.ToString();
-                bar.FillColor = ie_colors_bars[color_index_bar];
-                color_index_bar += 1;
-                
-            }
+            
 
             var pie = WPF_Plot_Projets_Villes.Plot.Add.Pie(projets_par_villes_PS);
             pie.DonutFraction = .5;
@@ -132,7 +136,7 @@ namespace SQLiteWPF
             pie.ShowSliceLabels = false;
             pie.SliceLabelDistance = .5;
 
-            
+
             WPF_Plot_Projets_Villes.Plot.HideGrid();
             WPF_Plot_Projets_Villes.Plot.ShowLegend();
             //WPF_Plot_Projets_Villes.Plot.Layout.Frameless();
@@ -148,30 +152,52 @@ namespace SQLiteWPF
 
             // Il faut créer un générateur de ticks d'après le nombre de bâtiments concernés, extraire les valeurs uniques de la colonne batiment
 
-            
+
 
             List<string> batiments_uniques = GetUniqueBatimentsValuesFromBDD();
             List<Tick> list_ticks = new List<Tick>();
-            
+            List<double> nb_projets_bat = new List<double>();
 
-            if ( batiments_uniques.Count > 0)
+            if (batiments_uniques.Count > 0)
             {
-                
+
                 int tick_count = 0;
-                foreach(string bat in  batiments_uniques )
+                foreach (string bat in batiments_uniques)
                 {
                     Tick tick = new Tick(tick_count, bat);
                     tick_count++;
                     list_ticks.Add(tick);
+                    nb_projets_bat.Add(GetNumberOfProjectsForBatiment(bat));
                 }
             }
 
             Tick[] ticks_enum = list_ticks.ToArray();
 
+            double[] values = nb_projets_bat.ToArray();
+
+
+
+            WPF_Plot_Projets_Batiments.Plot.Add.Palette = new ScottPlot.Palettes.Amber();
+
+            List<ScottPlot.Color> ie_colors_bars = ScottPlot.Colors.RandomHue(values.Length).ToList();
+
+
+
+            var bars = WPF_Plot_Projets_Batiments.Plot.Add.Bars(values);
+
             bars.ValueLabelStyle.ForeColor = ScottPlot.Colors.White;
-            
+
             WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks_enum);
-            
+
+            // define the content of labels
+            foreach (var bar in bars.Bars)
+            {
+                bar.Label = bar.Value.ToString();
+                bar.FillColor = ie_colors_bars[color_index_bar];
+                color_index_bar += 1;
+
+            }
+
 
             WPF_Plot_Projets_Batiments.Plot.ShowLegend();
             //WPF_Plot_Projets_Villes.Plot.Layout.Frameless();
@@ -203,11 +229,24 @@ namespace SQLiteWPF
             // WPF_Plot_Projets_Batiments.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.DateTimeAutomatic();
             WPF_Plot_Projets_Batiments.Plot.Axes.Color(ScottPlot.Colors.White);
             WPF_Plot_Projets_Batiments.Plot.Axes.Margins(bottom: 0, top: .2);
-
-
-
         }
 
+        private int GetNumberOfProjectsForBatiment(string batiment)
+        {
+            int result = 0;
+
+            string query = "SELECT COUNT(*) FROM project WHERE project_batiment = @batiment";
+
+            using (var cmd = new SQLiteCommand(query, SetupSQLite.sqliteconn))
+            {
+                handleConn(SetupSQLite.sqliteconn);
+                cmd.Parameters.AddWithValue("@batiment", batiment);
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+                handleConn(SetupSQLite.sqliteconn);
+            }
+
+            return result;
+        }
         private int GetNumberOfProjectsForCity(string ville)
         {
             int result = 0;
@@ -357,6 +396,7 @@ namespace SQLiteWPF
 
         /// <summary>
         /// Chemin par défaut du dossier contenant la base de données
+        /// Il faudra modifier ce chemin lorsque la base de données passera en production
         /// </summary>
         /// <returns></returns>
         public static string DBDirectory()
@@ -567,7 +607,7 @@ namespace SQLiteWPF
         /// <param name="e"></param>
         private void submit_btn_Click(object sender, RoutedEventArgs e)
         {
-
+            // S'assure qu'un bâtiment est sélectionné
             if (project_batiment_combobox.SelectedItem != null)
             {
                 try
@@ -594,11 +634,54 @@ namespace SQLiteWPF
                                SetupSQLite.sqliteconn))
                     {
                         Debug.WriteLine("-- Insertion du nouveau projet dans la base de données réussie");
+
+                        Console_txtbox.Text = "Le nouveau projet " + project_name_txtbox.Text + " a été créé avec succès.";
+
+                        // Nettoyage des valeurs inputées pour la création d'un nouveau projet
+                        responsable_txtbox.Clear();
+                        project_batiment_combobox.SelectedItem = null;
+                        project_name_txtbox.Clear();
+                        description_txtbox.Clear();
+                        project_etages_listbox.ItemsSource = null;
+                        project_city_txtbox.Clear();
+                        
+                        List<Border> bdlist = new List<Border>();
+                        bdlist.Add(Border_Typologie_Mobilier);
+                        bdlist.Add(Border_Typologie_Transfert);
+                        bdlist.Add(Border_Typologie_Travaux);
+
+                        foreach(Border b in bdlist)
+                        {
+                            StackPanel stp = (StackPanel)b.Child;
+                            b.Tag = null;
+                            b.Background = Brushes.DarkSlateGray;
+                            foreach(var v in stp.Children)
+                            {
+                                if(v is Label)
+                                {
+                                    Label l = (Label)v;
+                                    l.Foreground = Brushes.White;
+                                }
+                            }
+                        }
+
+                        // Il faut également déselectionner les typologies de projet :
+                        Border_Typologie_Mobilier.Tag = null;
+                        Border_Typologie_Transfert.Tag = null;
+                        Border_Typologie_Travaux.Tag = null;
+
+                        Border_Typologie_Mobilier.Background = Brushes.DarkSlateGray;
+                        Border_Typologie_Transfert.Background = Brushes.DarkSlateGray;
+                        Border_Typologie_Travaux.Background = Brushes.DarkSlateGray;
+
+                        
+
                         // Reselection de la base de données pour affichage dans la DataGrid
                         Select(SetupSQLite.sqliteconn);
                     }
 
                     // Si le resultat de l'insertion est une booleene fausse, signe que l'insertion à échoué
+                    // je n'ai encore jamais rencontré cette éventualité, une exception prend toujours le dessus
                     else
                     {
                         MessageBox.Show("Oops! Something went wrong");
@@ -758,6 +841,8 @@ namespace SQLiteWPF
                         nom_projet_info.Text = dtrv.Row["project_name"].ToString();
                         nom_batiment_info.Text = dtrv.Row["project_batiment"].ToString();
                         etages_projet_info.Text = dtrv.Row["project_floors"].ToString();
+                        date_creation_info.Text = dtrv.Row["project_creation_date"].ToString();
+                        project_duration_info.Text = "Actif depuis : " + Math.Abs(DateTime.Parse(date_creation_info.Text).Subtract(DateTime.Now).TotalDays).ToString("0.00") + " jours";
                     }
                 }
                 // Si la rangée sélectionnée est nulle
@@ -840,25 +925,25 @@ namespace SQLiteWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Obtention de la textbox utilisée,
             TextBox t = (TextBox)sender;
             
-            Debug.WriteLine(t.Name + " : " + t.Text);
-            Debug.WriteLine(projectsDataGrid.DataContext.ToString());
+            //Debug.WriteLine(t.Name + " : " + t.Text);
+            //Debug.WriteLine(projectsDataGrid.DataContext.ToString());
             // Obtention de la DataView de la DataGrid
             DataView dv = projectsDataGrid.DataContext as DataView;
             // Obtention du texte de la TextBox et stockage dans une string
             string filterstring = t.Text;
             // Etablissement du filtre sur la DataView
-            dv.RowFilter = t.Tag + " LIKE '%" + t.Text + "%'";
-            Debug.WriteLine("-- " + t.Tag);
-            
-
-
+            dv.RowFilter = t.Tag + " LIKE '%" + filterstring + "%'";
         }
-
+        /// <summary>
+        /// Méthode appelée lors du clic sur un bouton de vue de projet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vu_Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -894,11 +979,14 @@ namespace SQLiteWPF
                 
             }
             DataView dataContext = projectsDataGrid.DataContext as DataView;
+            // Stockage du filtre et du tri actuel pour restitution
             string current_filter = dataContext.RowFilter;
             string current_sort = dataContext.Sort;
             Debug.WriteLine(current_filter + " = Filtre courant");
             Debug.WriteLine(current_sort + " = Sort courant");
+            // Reselection de la base de données
             Select(SetupSQLite.sqliteconn);
+            // Ré-application des filtres et des tris sur la nouvelle DataView
             DataView dataContext_past = projectsDataGrid.DataContext as DataView;
             dataContext_past.RowFilter = current_filter;
             DataView dataContext_past_2 = projectsDataGrid.DataContext as DataView;
@@ -915,6 +1003,11 @@ namespace SQLiteWPF
             return parent ?? FindVisualParent<T>(parentObject);
         }
 
+        /// <summary>
+        /// Méthode SQL de modification de la valeur de vue du projet
+        /// </summary>
+        /// <param name="projectId">L'iD du projet à modifier</param>
+        /// <param name="newValue">La nouvelle valeur de complétion (un simili-booléen en entier, où 0 est faux et 1 est vrai).</param>
         private void UpdateProjectSeenForSessionInDatabase(int projectId, int newValue)
         {
             using (SQLiteConnection connection = new SQLiteConnection("Data Source=" + SetupSQLite.DB_PATH + ";Version=3;"))
@@ -932,6 +1025,11 @@ namespace SQLiteWPF
             }
         }
 
+        /// <summary>
+        /// Méthode SQL de modification de la valeur de complétion d'un projet
+        /// </summary>
+        /// <param name="projectId">L'iD du projet à modifier</param>
+        /// <param name="newValue">La nouvelle valeur de complétion (un simili-booléen en entier, où 0 est faux et 1 est vrai).</param>
         private void UpdateProjectCompletionInDatabase(int projectId, int newValue)
         {
             using (SQLiteConnection connection = new SQLiteConnection("Data Source=" + SetupSQLite.DB_PATH + ";Version=3;"))
@@ -948,7 +1046,11 @@ namespace SQLiteWPF
                 }
             }
         }
-
+        /// <summary>
+        /// Méthode appellée lors du clic sur l'item du menu contextuel destiné à marquer les projets comme vus.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContextMenuItemVue_Click(object sender, RoutedEventArgs e) 
         {
             MenuItem mit = sender as MenuItem;
@@ -1000,7 +1102,11 @@ namespace SQLiteWPF
             }
             
         }
-
+        /// <summary>
+        /// Méthode appellée lors du clic sur sur l'item du menu contextuel destiné à clôturer les projets.
+        /// </summary>
+        /// <param name="sender">L'objet qui envoi la méthode, typiquement l'item du menu contextuel.</param>
+        /// <param name="e"></param>
         private void ContextMenuItem_CloseProjects(object sender, RoutedEventArgs e)
         {
             var selection = projectsDataGrid.SelectedItems;
@@ -1023,10 +1129,49 @@ namespace SQLiteWPF
             dataContext_past_2.Sort = current_sort;
 
         }
-
+        /// <summary>
+        /// Suppression de projets sélectionnés par un menu contextuel du clic droit. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContextMenuItem_DeleteProjects(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Ha !");
+            //MessageBox.Show("Ha !");
+            MessageBoxResult result = MessageBox.Show("Cette opération de suppression des projets est définitive." +
+                " Pour clôturer un projet terminé, préférez l'option Clôturer le(s) projet(s), ils seront ainsi masqués dans la vue des projets, mais conservés pour prise en compte dans la rubrique Statistiques." +
+                "\n\nSouhaitez-vous réellement supprimer \nles projets sélectionnés ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            // Ici, il faut supprimer le projet de la base de données 
+            if(result == MessageBoxResult.Yes)
+            {
+                var selection = projectsDataGrid.SelectedItems;
+                foreach (DataRowView dgr in selection)
+                {
+                    var id_values = dgr.Row["iD"];
+                    string query = "DELETE FROM project WHERE iD = @id";
+                    using (var cmd = new SQLiteCommand(query, SetupSQLite.sqliteconn))
+                    {
+                        handleConn(SetupSQLite.sqliteconn);
+
+                        cmd.Parameters.AddWithValue("@id", id_values);
+                        cmd.ExecuteNonQuery();
+
+
+                        handleConn(SetupSQLite.sqliteconn);
+                    }
+                }
+                Select(SetupSQLite.sqliteconn);
+            }
+
+            else
+            {
+
+            }
+            
+
+            
+
+            
+            
         }
     }
 }
